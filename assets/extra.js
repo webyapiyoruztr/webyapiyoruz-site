@@ -42,4 +42,8 @@ function pshow(i){sm[pc].classList.remove("on");pn[pc].classList.remove("on");pc
 sm.forEach(function(e,i){e.addEventListener("click",function(){stopped=true;clearInterval(pt);pshow(i)})});
 var dh=document.getElementById("dash");dh.addEventListener("mouseenter",function(){ph=true});dh.addEventListener("mouseleave",function(){ph=false});
 if(!rm)pt=setInterval(function(){if(!stopped&&!ph)pshow((pc+1)%sm.length)},4500)}
+
+/* phones: real sites scaled to phone width */
+function fitPh(){[].slice.call(document.querySelectorAll(".phones iframe")).forEach(function(f){var s=f.parentNode,w=s.clientWidth,k=w/390;f.style.width="390px";f.style.height=(s.clientHeight/k)+"px";f.style.transform="scale("+k+")"})}
+fitPh();window.addEventListener("resize",fitPh);window.addEventListener("load",fitPh);
 })();
