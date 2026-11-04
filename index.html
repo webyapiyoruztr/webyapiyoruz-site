@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Web Yapıyoruz | Sektörünüze özel web sitesi ve randevu sistemi</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0F172A;--amber:#FFC21A;--ink:#111B2E;--mut:#5B6880;--line:#E4E9F1;--bg:#F5F7FB}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:#fff;font-size:18px;line-height:1.6}
+h1,h2,h3{font-family:Poppins,sans-serif;letter-spacing:-.03em;line-height:1.06;color:var(--navy);font-weight:500}
+a{text-decoration:none;color:inherit}
+.wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{height:76px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:Poppins;font-weight:700;font-size:27px;color:var(--navy);display:flex;align-items:center;gap:8px;letter-spacing:-.03em}
+.logo b{position:relative;background:var(--amber);font-size:14px;padding:4px 10px;border-radius:7px;letter-spacing:0}
+.rt{display:flex;align-items:center;gap:22px}.lang{display:flex;border:1.5px solid var(--line);border-radius:30px;overflow:hidden}.lang button{border:0;background:#fff;padding:8px 14px;font:600 14px Inter;color:#6b7890;cursor:pointer}.lang button.on{background:var(--navy);color:#fff}
+.cur{position:absolute;right:-12px;bottom:-13px;width:18px;height:25px}
+nav{display:flex;gap:34px;font-weight:500;font-size:16px;color:#2a3850}
+.pill{display:inline-block;background:var(--navy);color:#fff;font-weight:500;font-size:18px;padding:18px 38px;border-radius:40px;font-family:Inter}
+.pill.am{background:var(--amber);color:#1d1400}
+.pill.sm{padding:12px 24px;font-size:15.5px}
+.hero{text-align:center;padding:96px 0 0;background:radial-gradient(ellipse 80% 60% at 50% 100%,#FFF0BF 0%,#FFF8E0 40%,#fff 75%);overflow:hidden}
+.hero h1{font-size:88px;max-width:1080px;margin:0 auto;letter-spacing:-.045em}
+.hero p{font-size:23px;color:#3b475c;margin:30px auto 34px;max-width:620px}
+.hero small{display:block;margin-top:18px;font-size:15px;color:var(--mut)}
+.peek{position:relative;max-width:1100px;margin:70px auto 0;height:380px}
+.card-s{position:absolute;border-radius:18px 18px 0 0;overflow:hidden;background:#fff;box-shadow:0 -6px 60px rgba(15,23,42,.16);border:1px solid var(--line)}
+.bar{height:26px;background:#EEF2F8;display:flex;gap:6px;align-items:center;padding:0 12px}
+.bar i{width:8px;height:8px;border-radius:50%;background:#cdd6e4}
+.card-s img,.tl img{display:block;width:100%}
+.p-c{left:150px;right:150px;top:0;z-index:3}
+.p-l{left:0;width:420px;top:70px;z-index:2}
+.p-r{right:0;width:420px;top:70px;z-index:2}
+.fk{text-align:left;aspect-ratio:960/555;padding:7% 8%;display:flex;flex-direction:column;justify-content:space-between;color:#fff}
+.fk h4{font-family:Poppins;font-weight:600;font-size:1.9em;line-height:1.12;max-width:72%;font-size:clamp(14px,2.4vw,30px)}
+.fk .r{display:flex;gap:2.5%}.fk .r i{width:17%;height:34px;border-radius:8px;background:rgba(255,255,255,.88)}.fk .r i.a{background:var(--c)}
+.fk .pl{width:30%;height:26px;border-radius:8px;background:var(--c)}
+section{padding:130px 0}
+.k{font-weight:600;color:#B77E00;margin-bottom:16px;font-size:16px}
+h2{font-size:64px;letter-spacing:-.04em;max-width:900px}
+.sub{font-size:21px;color:var(--mut);margin-top:20px;max-width:640px}
+.center{text-align:center}.center h2,.center .sub{margin-left:auto;margin-right:auto}
+/* tilted gallery */
+.show{background:#fff;padding-bottom:60px}
+.tilt{display:flex;justify-content:center;align-items:center;gap:26px;margin-top:70px;perspective:1800px;height:470px}
+.tl{width:330px;flex:none;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 30px 70px rgba(15,23,42,.18);border:1px solid var(--line)}
+.tl.c{width:520px;z-index:3}
+.tl.a1{transform:rotateY(32deg) translateZ(-60px)}.tl.a2{transform:rotateY(22deg)}
+.tl.b1{transform:rotateY(-32deg) translateZ(-60px)}.tl.b2{transform:rotateY(-22deg)}
+.tabs{display:flex;justify-content:center;gap:0;margin-top:50px;flex-wrap:wrap}
+.tabs a{padding:4px 22px;border-right:1px solid var(--line);color:#9aa5b8;font-size:18px}
+.tabs a:last-child{border:0}.tabs a.on{color:var(--navy);text-decoration:underline;text-underline-offset:6px}
+/* sektor accordion */
+.sek{display:grid;grid-template-columns:1fr 1.15fr;gap:80px;align-items:center;margin-top:70px}
+.stage{position:relative;aspect-ratio:1/.95;border-radius:26px;overflow:hidden;background:linear-gradient(160deg,#BBD3F5,#E3EDFB);display:grid;place-items:center}
+.stage .p{position:absolute;inset:0;display:grid;place-items:center;opacity:0;transition:opacity .35s}
+.stage .p.on{opacity:1}
+.stage .fr{width:78%;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 24px 60px rgba(15,23,42,.28)}
+.stage img{display:block;width:100%}
+.stage .fk h4{font-size:24px}.stage .fk{font-size:16px}
+.acc{border-top:1px solid #cfd7e3}
+.it{border-bottom:1px solid #cfd7e3;padding:22px 0;cursor:pointer}
+.it h3{font-size:50px;color:#A6B0C0;font-weight:400;display:flex;justify-content:space-between;align-items:center;transition:color .2s}
+.it h3 span{font-size:30px;opacity:0}
+.it .d{max-height:0;overflow:hidden;transition:max-height .35s}
+.it.on h3{color:var(--navy)}.it.on h3 span{opacity:1}
+.it.on .d{max-height:200px}
+.d p{color:#3b475c;font-size:18px;margin-top:14px;max-width:520px}
+.d a{display:inline-block;margin:16px 0 8px;font-weight:600;border-bottom:2px solid var(--amber);color:var(--navy)}
+/* big cards */
+.big{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:70px}
+.bc{border-radius:26px;overflow:hidden;position:relative;min-height:560px;display:flex;flex-direction:column;justify-content:flex-end;padding:38px;color:#fff}
+.bc h3{color:#fff;font-size:28px;font-weight:500;margin-bottom:10px}.bc p{font-size:17.5px;opacity:.92}
+.bc .ill{position:absolute;left:0;right:0;top:0;height:330px;display:grid;place-items:center}
+.bc1{background:linear-gradient(160deg,#17264A,#2F58C2)}
+.bc2{background:linear-gradient(160deg,#8B5A12,#E8A100)}
+.bc3{background:linear-gradient(160deg,#0F3D3E,#2E9C88)}
+.mini{width:70%;background:#fff;border-radius:12px;color:var(--ink);box-shadow:0 20px 50px rgba(0,0,0,.3);overflow:hidden;font-size:12px}
+.mini .h{background:#0F172A;color:#fff;padding:10px 12px;font-family:Poppins;font-weight:600;font-size:13px}
+.mini .b{padding:12px}
+.mini .ln{height:8px;border-radius:4px;background:#E3E9F2;margin:7px 0}
+.mini .bt{display:inline-block;margin-top:6px;background:var(--amber);height:22px;width:84px;border-radius:6px}
+.mini .sl{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:8px}.mini .sl i{height:22px;border-radius:5px;background:#E8EEF8;display:block}.mini .sl i.x{background:#0F172A}
+.mini .rw{display:flex;justify-content:space-between;padding:7px 0;border-top:1px solid #E8EDF5;font-weight:500}
+.mini .rw em{font-style:normal;background:#DDF5E6;color:#14703A;padding:1px 8px;border-radius:10px;font-size:11px}
+/* panel */
+.pan{background:linear-gradient(180deg,#F5F8FE,#DCE8FB);padding:130px 0}
+.dash{max-width:1040px;margin:70px auto 0;background:#fff;border-radius:22px;box-shadow:0 40px 90px rgba(15,23,42,.18);overflow:hidden;display:grid;grid-template-columns:200px 1fr}
+.side{background:#0F172A;color:#aab6cc;padding:26px 20px;font-size:15px}
+.side b{display:block;color:#fff;font-family:Poppins;font-size:18px;margin-bottom:22px}
+.side div{padding:10px 12px;border-radius:9px;margin-bottom:4px}.side div.on{background:#1f2c4a;color:#fff}
+.main{padding:32px 36px}
+.main h4{font-family:Poppins;font-weight:500;font-size:26px;color:var(--navy);margin-bottom:22px}
+.st{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+.st div{border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.st span{font-size:14px;color:var(--mut)}.st b{display:block;font-family:Poppins;font-size:34px;color:var(--navy);font-weight:600}
+.feed .rw{display:flex;justify-content:space-between;padding:14px 0;border-top:1px solid var(--line);font-size:15.5px}
+.tg{font-size:12.5px;font-weight:600;padding:3px 11px;border-radius:20px}.g{background:#DDF5E6;color:#14703A}.y{background:#FFF1CC;color:#7a5200}.bl{background:#E3EDFF;color:#1F4FB0}
+/* steps */
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:70px 50px;margin-top:80px}
+.hs{display:flex;gap:22px}.hs span{font-size:20px;color:var(--navy);font-weight:500;padding-top:2px}
+.hs h3{font-size:26px;margin-bottom:10px}.hs p{color:var(--mut);font-size:17px}
+/* faq */
+.faq{display:grid;grid-template-columns:1fr 1.5fr;gap:70px}
+.faq details{border-top:1px solid #aab3c2;padding:30px 4px}
+.faq details:last-child{border-bottom:1px solid #aab3c2}
+.faq summary{font-size:22px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;color:var(--navy)}
+.faq summary:after{content:"+";font-size:30px;line-height:1}
+.faq details[open] summary:after{content:"–"}
+.faq p{color:var(--mut);margin-top:14px;max-width:600px}
+.cta{background:linear-gradient(120deg,#0F172A,#1B2B4D);border-radius:30px;padding:90px 40px;text-align:center;color:#fff}
+.cta h2{color:#fff;margin:0 auto;font-size:56px}.cta p{color:#b4c1d6;font-size:21px;margin:18px 0 34px}
+footer{padding:80px 0 40px;font-size:16px;color:#3b475c;border-top:1px solid var(--line);margin-top:130px}
+.fg{display:grid;grid-template-columns:repeat(4,1fr) 1.3fr;gap:36px}
+footer b{display:block;color:var(--navy);margin-bottom:14px;font-weight:600}
+footer a{display:block;margin-bottom:10px}
+.copy{margin-top:60px;padding-top:26px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-size:14.5px}
+@media(max-width:900px){body{font-size:16px}nav{display:none}.hero h1{font-size:46px}h2{font-size:38px}.peek{height:240px}.p-l,.p-r{display:none}.p-c{left:16px;right:16px}.tilt{overflow:hidden;height:300px}.tl.a1,.tl.b1{display:none}.tl{width:200px}.tl.c{width:260px}.sek,.big,.faq,.how,.fg,.dash{grid-template-columns:1fr}.it h3{font-size:34px}section{padding:80px 0}.side{display:none}}
+</style>
+</head>
+<body>
+<header><div class="wrap nav">
+ <a class="logo" href="#">Web<b>Yapıyoruz<svg class="cur" viewBox="0 0 24 34"><path d="M2 2 V27 L8.5 21 L13 31 L18 29 L13.5 19.5 L22 19.5 Z" fill="#0F172A" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"/></svg></b></a>
+ <nav><a href="#sablonlar">Şablonlar</a><a href="#sektorler">Sektörler</a><a href="#panel">Yönetim paneli</a><a href="#nasil">Nasıl çalışır</a><a href="#sss">Sık sorulanlar</a></nav>
+ <div class="rt"><div class="lang"><button id="tr" class="on" type="button">TR</button><button id="en" type="button">EN</button></div><a class="pill am sm" href="#iletisim">Ücretsiz görüşme</a></div>
+</div></header>
+
+<div class="hero">
+ <div class="wrap">
+  <h1>Siteniz de randevunuz da tek yerde.</h1>
+  <p>Sektörünüze özel web sitesi ve randevu sistemi. Biz kurarız, yayına alırız, bakımını yaparız.</p>
+  <a class="pill" href="#sablonlar">Şablonları gez</a>
+  <small>Görüşme ücretsiz, zorunluluk yok.</small>
+ </div>
+ <div class="peek">
+  <div class="card-s p-l"><div class="bar"><i></i><i></i><i></i></div><div class="fk" style="background:#5A2A3C;--c:#E9B96E"><div class="pl"></div><h4>Hayalinizdeki gün için</h4><div class="r"><i></i><i class="a"></i><i></i></div></div></div>
+  <div class="card-s p-r"><div class="bar"><i></i><i></i><i></i></div><div class="fk" style="background:#1D1F26;--c:#E5484D"><div class="pl"></div><h4>Servis randevusu online</h4><div class="r"><i></i><i class="a"></i><i></i></div></div></div>
+  <div class="card-s p-c"><div class="bar"><i></i><i></i><i></i></div><img src="img/kurs.jpg" alt=""></div>
+ </div>
+</div>
+
+<section class="show" id="sablonlar"><div class="wrap center">
+ <div class="k">Şablonlar</div>
+ <h2>Her sektöre hazır bir başlangıç</h2>
+ <p class="sub">Şablonlar çalışan demolardır. Gezin, randevu formunu deneyin, beğendiğinizi markanıza göre kuralım.</p>
+ <div class="tilt">
+  <div class="tl a1"><div class="bar"><i></i><i></i><i></i></div><div class="fk" style="background:#4F7494;--c:#9ED3F5"><div class="pl"></div><h4>Konukları karşılayın</h4><div class="r"><i></i><i class="a"></i><i></i></div></div></div>
+  <div class="tl a2"><div class="bar"><i></i><i></i><i></i></div><div class="fk" style="background:#5A2A3C;--c:#E9B96E"><div class="pl"></div><h4>Hayalinizdeki gün için</h4><div class="r"><i></i><i class="a"></i><i></i></div></div></div>
+  <div class="tl c"><div class="bar"><i></i><i></i><i></i></div><img src="img/kurs.jpg" alt=""></div>
+  <div class="tl b2"><div class="bar"><i></i><i></i><i></i></div><div class="fk" style="background:#1D1F26;--c:#E5484D"><div class="pl"></div><h4>Servis randevusu online</h4><div class="r"><i></i><i class="a"></i><i></i></div></div></div>
+  <div class="tl b1"><div class="bar"><i></i><i></i><i></i></div><div class="fk" style="background:#3B3F46;--c:#F59E0B"><div class="pl"></div><h4>Projelerinizi öne çıkarın</h4><div class="r"><i></i><i class="a"></i><i></i></div></div></div>
+ </div>
+ <div class="tabs"><a class="on" href="#">Kurs ve eğitim</a><a href="#">Otomotiv</a><a href="#">Servis</a><a href="#">İnşaat</a><a href="#">Otel</a><a href="#">Güzellik</a><a href="#">Düğün</a></div>
+</div></section>
+
+<section id="sektorler" style="padding-top:60px"><div class="wrap">
+ <div class="k">Sektörler</div>
+ <h2>İşinizi anlayan şablonlar</h2>
+ <div class="sek">
+  <div class="stage" id="stage">
+   <div class="p on"><div class="fr"><img src="img/kurs.jpg" alt=""></div></div>
+   <div class="p"><div class="fr"><div class="fk" style="background:#1D1F26;--c:#E5484D"><div class="pl"></div><h4>Servis randevusu online</h4><div class="r"><i></i><i class="a"></i><i></i></div></div></div></div>
+   <div class="p"><div class="fr"><div class="fk" style="background:#3B3F46;--c:#F59E0B"><div class="pl"></div><h4>Projelerinizi öne çıkarın</h4><div class="r"><i></i><i class="a"></i><i></i></div></div></div></div>
+   <div class="p"><div class="fr"><div class="fk" style="background:#4F7494;--c:#9ED3F5"><div class="pl"></div><h4>Konukları karşılayın</h4><div class="r"><i></i><i class="a"></i><i></i></div></div></div></div>
+   <div class="p"><div class="fr"><div class="fk" style="background:#85607F;--c:#F3BDE0"><div class="pl"></div><h4>Randevunuzu alın</h4><div class="r"><i></i><i class="a"></i><i></i></div></div></div></div>
+   <div class="p"><div class="fr"><div class="fk" style="background:#5A2A3C;--c:#E9B96E"><div class="pl"></div><h4>Hayalinizdeki gün için</h4><div class="r"><i></i><i class="a"></i><i></i></div></div></div></div>
+  </div>
+  <div class="acc" id="acc">
+   <div class="it on"><h3>Kurs ve eğitim<span>↗</span></h3><div class="d"><p>Kayıt, ders ve direksiyon randevusu, ödeme takibi, eğitim videoları ve öğrenci paneli.</p><a href="demo/kurs/index.html">Demoyu aç</a></div></div>
+   <div class="it"><h3>Otomotiv ve servis<span>↗</span></h3><div class="d"><p>Servis randevusu, araç ve bakım kaydı, WhatsApp'a yönlendirme.</p><a href="#">Yakında</a></div></div>
+   <div class="it"><h3>İnşaat ve yapı<span>↗</span></h3><div class="d"><p>Proje vitrini, teklif talebi, müşteri bilgi sistemi.</p><a href="#">Yakında</a></div></div>
+   <div class="it"><h3>Otel ve konaklama<span>↗</span></h3><div class="d"><p>Rezervasyon talebi, oda tanıtımı, misafir bilgilendirme.</p><a href="#">Yakında</a></div></div>
+   <div class="it"><h3>Güzellik ve bakım<span>↗</span></h3><div class="d"><p>Hizmet seçimli randevu, uzman ve saat yönetimi.</p><a href="#">Yakında</a></div></div>
+   <div class="it"><h3>Düğün ve organizasyon<span>↗</span></h3><div class="d"><p>Tarih müsaitliği, ön rezervasyon, paket eşleştirme.</p><a href="#">Yakında</a></div></div>
+  </div>
+ </div>
+</div></section>
+
+<section style="padding-top:20px"><div class="wrap">
+ <div class="k">Neler yapıyoruz</div>
+ <h2>Sadece site değil, işinizi yürüten sistem</h2>
+ <div class="big">
+  <div class="bc bc1"><div class="ill"><div class="mini"><div class="h">Ufuk Yol</div><div class="b"><div class="ln" style="width:80%"></div><div class="ln" style="width:55%"></div><span class="bt"></span></div></div></div><h3>Kurumsal web sitesi</h3><p>Sektörünüze özel tasarım. Telefonda, tablette ve bilgisayarda düzgün açılır.</p></div>
+  <div class="bc bc2"><div class="ill"><div class="mini"><div class="h">Randevu seçin</div><div class="b"><div class="sl"><i></i><i class="x"></i><i></i><i></i><i></i><i></i><i class="x"></i><i></i></div><span class="bt"></span></div></div></div><h3>Randevu ve kayıt</h3><p>Müşteri günü ve saati kendisi seçer. Talep size anında ulaşır.</p></div>
+  <div class="bc bc3"><div class="ill"><div class="mini"><div class="h">Bugün</div><div class="b"><div class="rw"><span>Ayşe Y. 10:00</span><em>Onaylı</em></div><div class="rw"><span>Mehmet K. 11:00</span><em>Onaylı</em></div><div class="rw"><span>Elif D. 14:00</span><em>Yeni</em></div></div></div></div><h3>Müşteri takibi</h3><p>Kim aradı, kim randevu aldı, ne zaman döneceksiniz. Hepsi kayıtlı.</p></div>
+ </div>
+</div></section>
+
+<section class="pan" id="panel"><div class="wrap center">
+ <div class="k">Yönetim paneli</div>
+ <h2>İşinizin kumandası cebinizde</h2>
+ <p class="sub">Randevular, müşteriler ve notlar tek ekranda. Kod bilmeden siz yönetirsiniz.</p>
+ <div class="dash" style="text-align:left">
+  <div class="side"><b>Panelim</b><div class="on">Genel bakış</div><div>Randevular</div><div>Müşteriler</div><div>Ödemeler</div><div>Notlar</div><div>Ayarlar</div></div>
+  <div class="main"><h4>Hoş geldiniz, Murat</h4>
+   <div class="st"><div><span>Bugünkü randevu</span><b>12</b></div><div><span>Bu hafta</span><b>48</b></div><div><span>Yeni talep</span><b>5</b></div></div>
+   <div class="feed"><div class="rw"><span>Ayşe Yılmaz · Direksiyon · 14:00</span><span class="tg g">Onaylandı</span></div><div class="rw"><span>Mehmet Kaya · Ön kayıt formu</span><span class="tg bl">Yeni talep</span></div><div class="rw"><span>Elif Demir · 3. taksit</span><span class="tg y">Ödeme bekliyor</span></div></div>
+  </div>
+ </div>
+</div></section>
+
+<section id="nasil"><div class="wrap">
+ <div class="k">Nasıl çalışır</div>
+ <h2 style="max-width:760px">Fikirden yayına altı adım</h2>
+ <div class="how">
+  <div class="hs"><span>(01)</span><div><h3>Şablonu seçin</h3><p>Sektörünüze uygun demoyu gezin, beğendiğinizi söyleyin.</p></div></div>
+  <div class="hs"><span>(02)</span><div><h3>Görüşelim</h3><p>İhtiyacınızı dinler, kapsamı ve fiyatı yazılı veririz.</p></div></div>
+  <div class="hs"><span>(03)</span><div><h3>Kuralım</h3><p>Adınıza, logonuza ve renklerinize göre hazırlar, size önizletiriz.</p></div></div>
+  <div class="hs"><span>(04)</span><div><h3>Yayına alalım</h3><p>Alan adınızla yayına alır, bakımını biz yaparız.</p></div></div>
+  <div class="hs"><span>(05)</span><div><h3>Telefonda açılsın</h3><p>Siteniz telefonda uygulama gibi açılır, ana ekrana eklenir.</p></div></div>
+  <div class="hs"><span>(06)</span><div><h3>Yanınızdayız</h3><p>Yıllık bakımla güncelleme ve destek devam eder.</p></div></div>
+ </div>
+</div></section>
+
+<section style="padding-top:20px" id="sss"><div class="wrap faq">
+ <h2 style="font-size:54px">Sık sorulan sorular</h2>
+ <div>
+  <details open><summary>Siteyi kim yönetecek?</summary><p>Yönetim paneliyle siz yönetirsiniz. İsterseniz güncellemeleri biz de yaparız.</p></details>
+  <details><summary>Ne kadar sürede yayına alınır?</summary><p>Şablon hazırsa kapsama göre birkaç gün içinde önizleme gösteririz.</p></details>
+  <details><summary>Fiyata neler dahil?</summary><p>Kurulum bir kez ödenir. Barındırma ve bakım yıllık, yazılı olarak belirtilir.</p></details>
+  <details><summary>Kendi alan adımı kullanabilir miyim?</summary><p>Evet. Alan adınızı yönlendirir, yayına alırız.</p></details>
+  <details><summary>Mobil uygulama da yapıyor musunuz?</summary><p>Siteniz telefonda uygulama gibi açılır. Mağazada yayınlanan uygulama ayrı bir hizmettir.</p></details>
+ </div>
+</div></section>
+
+<section style="padding:0" id="iletisim"><div class="wrap"><div class="cta"><h2>Birlikte kuralım.</h2><p>İşletmenize uygun şablonu seçelim, teklifi yazılı verelim.</p><a class="pill am" href="#">WhatsApp ile yazın</a></div></div></section>
+
+<footer><div class="wrap">
+ <div class="fg">
+  <div><b>Hizmetler</b><a href="#">Web sitesi</a><a href="#">Randevu sistemi</a><a href="#">Yönetim paneli</a><a href="#">Bakım ve destek</a></div>
+  <div><b>Sektörler</b><a href="#">Kurs ve eğitim</a><a href="#">Otomotiv ve servis</a><a href="#">İnşaat</a><a href="#">Otel</a></div>
+  <div><b>Şirket</b><a href="#">Hakkımızda</a><a href="#">İletişim</a></div>
+  <div><b>Yasal</b><a href="#">Gizlilik ve KVKK</a><a href="#">Çerez politikası</a><a href="#">Hizmet sözleşmesi</a></div>
+  <div><a class="logo" href="#" style="display:flex">Web<b>Yapıyoruz<svg class="cur" viewBox="0 0 24 34"><path d="M2 2 V27 L8.5 21 L13 31 L18 29 L13.5 19.5 L22 19.5 Z" fill="#0F172A" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"/></svg></b></a><p style="margin-top:14px">Sektörünüze özel web sitesi ve randevu sistemleri. Kombin Medya bünyesinde hizmet verir.</p></div>
+ </div>
+ <div class="copy"><span>© 2026 Web Yapıyoruz</span><span>Kombin Medya</span></div>
+</div></footer>
+<script>
+(function(){var it=document.querySelectorAll("#acc .it"),p=document.querySelectorAll("#stage .p");
+it.forEach(function(e,i){e.addEventListener("click",function(){it.forEach(function(x){x.classList.remove("on")});p.forEach(function(x){x.classList.remove("on")});e.classList.add("on");p[i].classList.add("on")})})})();
+</script>
+<script>
+(function(){var D={"Şablonlar": "Templates", "Sektörler": "Industries", "Yönetim paneli": "Dashboard", "Nasıl çalışır": "How it works", "Sık sorulanlar": "FAQ", "Ücretsiz görüşme": "Free consultation", "Siteniz de randevunuz da tek yerde.": "Your website and bookings, in one place.", "Sektörünüze özel web sitesi ve randevu sistemi. Biz kurarız, yayına alırız, bakımını yaparız.": "A website and booking system built for your industry. We set it up, launch it and maintain it.", "Şablonları gez": "Browse templates", "Görüşme ücretsiz, zorunluluk yok.": "Free consultation, no obligation.", "Hayalinizdeki gün için": "For your dream day", "Servis randevusu online": "Online service booking", "Konukları karşılayın": "Welcome your guests", "Projelerinizi öne çıkarın": "Showcase your projects", "Randevunuzu alın": "Book your appointment", "Her sektöre hazır bir başlangıç": "A ready start for every industry", "Şablonlar çalışan demolardır. Gezin, randevu formunu deneyin, beğendiğinizi markanıza göre kuralım.": "Templates are working demos. Explore them, try the booking form, and we'll build your favorite around your brand.", "Kurs ve eğitim": "Courses and education", "Otomotiv": "Automotive", "Servis": "Service", "İnşaat": "Construction", "Otel": "Hotel", "Güzellik": "Beauty", "Düğün": "Weddings", "İşinizi anlayan şablonlar": "Templates that understand your business", "Kayıt, ders ve direksiyon randevusu, ödeme takibi, eğitim videoları ve öğrenci paneli.": "Enrollment, lesson and practice bookings, payment tracking, training videos and a student panel.", "Otomotiv ve servis": "Automotive and service", "Servis randevusu, araç ve bakım kaydı, WhatsApp'a yönlendirme.": "Service bookings, vehicle and maintenance records, WhatsApp redirect.", "İnşaat ve yapı": "Construction and building", "Proje vitrini, teklif talebi, müşteri bilgi sistemi.": "Project showcase, quote requests, customer information system.", "Otel ve konaklama": "Hotels and lodging", "Rezervasyon talebi, oda tanıtımı, misafir bilgilendirme.": "Reservation requests, room presentation, guest information.", "Güzellik ve bakım": "Beauty and care", "Hizmet seçimli randevu, uzman ve saat yönetimi.": "Service-based booking, specialist and time management.", "Düğün ve organizasyon": "Weddings and events", "Tarih müsaitliği, ön rezervasyon, paket eşleştirme.": "Date availability, pre-booking, package matching.", "Demoyu aç": "Open demo", "Yakında": "Coming soon", "Neler yapıyoruz": "What we do", "Sadece site değil, işinizi yürüten sistem": "Not just a website, a system that runs your business", "Kurumsal web sitesi": "Corporate website", "Sektörünüze özel tasarım. Telefonda, tablette ve bilgisayarda düzgün açılır.": "Designed for your industry. Works properly on phone, tablet and computer.", "Randevu seçin": "Choose a time", "Randevu ve kayıt": "Bookings and registration", "Müşteri günü ve saati kendisi seçer. Talep size anında ulaşır.": "Customers pick the day and time themselves. The request reaches you instantly.", "Bugün": "Today", "Onaylı": "Confirmed", "Yeni": "New", "Müşteri takibi": "Customer tracking", "Kim aradı, kim randevu aldı, ne zaman döneceksiniz. Hepsi kayıtlı.": "Who called, who booked, when you'll get back. All on record.", "İşinizin kumandası cebinizde": "Your business control, in your pocket", "Randevular, müşteriler ve notlar tek ekranda. Kod bilmeden siz yönetirsiniz.": "Bookings, customers and notes on one screen. You manage it without any coding.", "Panelim": "My panel", "Genel bakış": "Overview", "Randevular": "Appointments", "Müşteriler": "Customers", "Ödemeler": "Payments", "Notlar": "Notes", "Ayarlar": "Settings", "Hoş geldiniz, Murat": "Welcome back, Murat", "Bugünkü randevu": "Today's bookings", "Bu hafta": "This week", "Yeni talep": "New requests", "Ayşe Yılmaz · Direksiyon · 14:00": "Ayşe Yılmaz · Driving lesson · 14:00", "Onaylandı": "Confirmed", "Mehmet Kaya · Ön kayıt formu": "Mehmet Kaya · Pre-registration form", "Elif Demir · 3. taksit": "Elif Demir · 3rd installment", "Ödeme bekliyor": "Awaiting payment", "Fikirden yayına altı adım": "From idea to launch in six steps", "Şablonu seçin": "Pick a template", "Sektörünüze uygun demoyu gezin, beğendiğinizi söyleyin.": "Browse the demo for your industry and tell us which one you like.", "Görüşelim": "Let's talk", "İhtiyacınızı dinler, kapsamı ve fiyatı yazılı veririz.": "We listen to your needs and give scope and price in writing.", "Kuralım": "We build it", "Adınıza, logonuza ve renklerinize göre hazırlar, size önizletiriz.": "We tailor it to your name, logo and colors, and show you a preview.", "Yayına alalım": "We launch it", "Alan adınızla yayına alır, bakımını biz yaparız.": "We publish it on your domain and take care of maintenance.", "Telefonda açılsın": "Opens like an app", "Siteniz telefonda uygulama gibi açılır, ana ekrana eklenir.": "Your site opens like an app on the phone and can be added to the home screen.", "Yanınızdayız": "We're with you", "Yıllık bakımla güncelleme ve destek devam eder.": "Updates and support continue with annual maintenance.", "Sık sorulan sorular": "Frequently asked questions", "Siteyi kim yönetecek?": "Who will manage the site?", "Yönetim paneliyle siz yönetirsiniz. İsterseniz güncellemeleri biz de yaparız.": "You manage it with the dashboard. We can also handle updates if you prefer.", "Ne kadar sürede yayına alınır?": "How long until it goes live?", "Şablon hazırsa kapsama göre birkaç gün içinde önizleme gösteririz.": "If the template is ready, we show a preview within a few days depending on scope.", "Fiyata neler dahil?": "What does the price include?", "Kurulum bir kez ödenir. Barındırma ve bakım yıllık, yazılı olarak belirtilir.": "Setup is paid once. Hosting and maintenance are annual and stated in writing.", "Kendi alan adımı kullanabilir miyim?": "Can I use my own domain?", "Evet. Alan adınızı yönlendirir, yayına alırız.": "Yes. We point your domain and publish the site.", "Mobil uygulama da yapıyor musunuz?": "Do you also make mobile apps?", "Siteniz telefonda uygulama gibi açılır. Mağazada yayınlanan uygulama ayrı bir hizmettir.": "Your site opens like an app on the phone. An app published in the app stores is a separate service.", "Birlikte kuralım.": "Let's build it together.", "İşletmenize uygun şablonu seçelim, teklifi yazılı verelim.": "Let's choose the right template for your business and give the quote in writing.", "WhatsApp ile yazın": "Message us on WhatsApp", "Hizmetler": "Services", "Web sitesi": "Website", "Randevu sistemi": "Booking system", "Bakım ve destek": "Maintenance and support", "Şirket": "Company", "Hakkımızda": "About us", "İletişim": "Contact", "Yasal": "Legal", "Gizlilik ve KVKK": "Privacy and data protection", "Çerez politikası": "Cookie policy", "Hizmet sözleşmesi": "Terms of service", "Sektörünüze özel web sitesi ve randevu sistemleri. Kombin Medya bünyesinde hizmet verir.": "Industry-specific websites and booking systems. Provided under Kombin Medya.", "© 2026 Web Yapıyoruz": "© 2026 Web Yapıyoruz"};var R={};for(var k in D)R[D[k]]=k;
+var nodes=[];var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);var n;
+while(n=w.nextNode()){var t=n.nodeValue.trim();if(D[t]!==undefined){nodes.push({n:n,tr:n.nodeValue,en:n.nodeValue.replace(t,D[t])})}}
+function set(l){nodes.forEach(function(o){o.n.nodeValue=l==="en"?o.en:o.tr});document.documentElement.lang=l;
+document.getElementById("tr").classList.toggle("on",l==="tr");document.getElementById("en").classList.toggle("on",l==="en");try{localStorage.setItem("wy-lang",l)}catch(e){}}
+document.getElementById("tr").onclick=function(){set("tr")};document.getElementById("en").onclick=function(){set("en")};
+var s="tr";try{s=localStorage.getItem("wy-lang")||"tr"}catch(e){}if(s==="en")set("en");
+window.__setLang=set;})();
+</script>
+</body>
+</html>
