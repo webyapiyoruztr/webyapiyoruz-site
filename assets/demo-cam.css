@@ -1,0 +1,28 @@
+/* Web Yapıyoruz — müşteri sitesi cam dili. Markanın kendi rengi camın tonu olur; zemin bulanık fotoğraf. */
+body:not(#x){--page:transparent;--ink:#fff;--hdt:#fff;--ln:rgba(255,255,255,.5);--alt:transparent;--blob:rgba(255,255,255,.1);
+--hd:color-mix(in srgb,var(--bg) 58%,transparent);
+--card:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.04) 45%,rgba(255,255,255,0)),color-mix(in srgb,var(--bg) 46%,transparent);color-scheme:dark}
+html{background:#0b1a3a}
+body{background:none!important;color:#fff;position:relative}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(70vmax 55vmax at 88% 0%,color-mix(in srgb,var(--ac) 38%,transparent),transparent 62%),linear-gradient(color-mix(in srgb,var(--bg) 62%,transparent),color-mix(in srgb,var(--bg) 78%,transparent)),url(bg-cam.jpg) center/cover no-repeat}
+h1,h2,h3,h4,b,strong{color:#fff}
+p,span,li,small,label{color:rgba(255,255,255,.88)}
+a{color:inherit}
+header{background:var(--hd)!important;backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);border-bottom:1.5px solid rgba(255,255,255,.5)!important}
+header nav,header nav a{color:#fff!important}
+section,section.alt,.hero,body.v2 .hero,body.v1 .hero,body.v3 .hero{background:none!important}
+.sv>div,.tb,.tc>div,.sl>div,.ad>div,.qa details,.kd>div,.ks>div,.pr>div,.hb>div,.stats,.card,.phone,.v,.form,form,body.v3 .st div,.st div,.ct>div,.rg form{background:var(--card)!important;border:1.5px solid rgba(255,255,255,.55)!important;backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.8),inset 0 0 0 1px rgba(255,255,255,.05),0 20px 44px rgba(0,8,30,.4)!important;color:#fff}
+.st div{border-top:1.5px solid rgba(255,255,255,.55)!important;border-radius:var(--r2,16px);padding:16px!important}
+input,select,textarea,.form input,.form select,.slots button,body.v1 input,body.v1 select{background:rgba(255,255,255,.1)!important;color:#fff!important;border:1.5px solid rgba(255,255,255,.5)!important;backdrop-filter:blur(10px)}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,.6)}
+select option{color:#0F172A;background:#fff}
+.b2,body.v2 .b2,body.v3 .b2{color:#fff!important;border-color:rgba(255,255,255,.7)!important;background:rgba(255,255,255,.1);backdrop-filter:blur(10px)}
+footer{background:color-mix(in srgb,var(--bg) 58%,transparent)!important;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-top:1.5px solid rgba(255,255,255,.5)!important;color:rgba(255,255,255,.9)!important}
+footer a{color:#fff;text-decoration:underline}
+.ok{color:#fff}
+.randevu,.road,.alt{background:none!important}
+.slots button.on{background:var(--ac,#FFB81C)!important;color:#1d1400!important;border-color:var(--ac,#FFB81C)!important}
+.slots button:disabled{opacity:.4}
+.card .ic{background:rgba(255,255,255,.16)!important}
+.bar{background:rgba(255,255,255,.16)!important}
+.step span{background:rgba(255,255,255,.2)!important;border:1.5px solid rgba(255,255,255,.55)}
