@@ -129,3 +129,10 @@ header nav a:hover,header nav a.cur-p{color:#FFC21A;border-bottom-color:#FFC21A}
 header nav{gap:18px}header nav a{font-size:14px}
 header nav a:nth-child(n+4){display:none}
 }
+
+/* v10 önizleme penceresi: üst çubuk yazıları ve kapatma düğmesi okunur (koyu) */
+.wm .tb{background:#EEF2F8!important}
+.wm .tb b,.wm .tb a{color:#0B1B3A!important;text-shadow:none!important;font-weight:600}
+.wm .tb a{border-bottom-color:#FFC21A!important}
+.wm .tb button{background:#fff!important;color:#000!important;border:1.5px solid #0B1B3A!important;text-shadow:none!important;font-weight:700;line-height:1}
+.wm .tb button:hover{background:#FFC21A!important}

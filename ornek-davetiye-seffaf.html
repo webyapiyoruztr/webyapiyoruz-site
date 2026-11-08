@@ -1,0 +1,120 @@
+<!DOCTYPE html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Şeffaf davetiye örneği | Dijital Dünyam</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#e6c378;--gold-hi:#f7e4b0;--ink:#f6ead0;--ink2:rgba(246,234,208,.72);--serif:"Cormorant Garamond",Georgia,serif;--script:"Great Vibes","Brush Script MT",cursive;--sans:"Figtree","Segoe UI",system-ui,sans-serif;color-scheme:dark}
+*{box-sizing:border-box}html,body{height:100%}
+body{margin:0;font:16px/1.5 var(--sans);color:var(--ink);overflow-x:hidden;background:#07080c;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.bg{position:fixed;inset:0;overflow:hidden;z-index:0;background:radial-gradient(45% 40% at 28% 30%,rgba(230,195,120,.35),transparent 70%),radial-gradient(40% 40% at 78% 70%,rgba(120,140,255,.28),transparent 70%),radial-gradient(30% 30% at 60% 15%,rgba(230,195,120,.16),transparent 70%),#07080c}
+.bg i{display:none}
+.bg b{display:none}
+.top{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:calc(12px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px));font-size:14px}
+.top a{color:var(--ink);text-decoration:none;border:1px solid rgba(255,255,255,.3);border-radius:99px;padding:8px 16px;background:rgba(0,0,0,.35);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.top span{color:var(--ink2)}
+.stage{position:relative;z-index:2;min-height:100%;display:flex;align-items:center;justify-content:center;padding:74px 0 40px}
+/* zarf */
+.env{position:relative;width:min(360px,86vw);height:min(240px,57vw);cursor:pointer;perspective:900px;transition:opacity .6s .5s,transform .8s .5s}
+.env .body{position:absolute;inset:0;background:linear-gradient(145deg,#1b1b1b,#0b0b0b);border-radius:6px;box-shadow:0 26px 50px rgba(0,0,0,.4)}
+.env .body:before{content:"";position:absolute;inset:0;border-radius:6px;background:linear-gradient(135deg,transparent 49.6%,rgba(255,255,255,.06) 50%,transparent 50.6%),linear-gradient(225deg,transparent 49.6%,rgba(255,255,255,.06) 50%,transparent 50.6%)}
+.env .flap{position:absolute;left:0;right:0;top:0;height:62%;background:linear-gradient(180deg,#232323,#111);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .8s cubic-bezier(.5,0,.2,1);z-index:2;border-radius:6px 6px 0 0}
+.env.open .flap{transform:rotateX(180deg)}
+.seal{position:absolute;left:50%;top:50%;width:70px;height:70px;margin:-45px 0 0 -35px;border-radius:50%;z-index:3;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#f2dba0,#c79a45 55%,#8a6420);box-shadow:0 6px 16px rgba(0,0,0,.5),inset 0 0 0 4px rgba(255,255,255,.12);font:600 20px var(--serif);color:#4a3410;transition:opacity .4s}
+.env.open .seal{opacity:0}
+.env .hint{position:absolute;left:0;right:0;bottom:-36px;text-align:center;color:var(--ink);font-size:14px;letter-spacing:.08em}
+.env.gone{opacity:0;transform:translateY(40px) scale(.9);pointer-events:none;position:absolute}
+.env .mon{position:absolute;left:0;right:0;bottom:22px;text-align:center;font:500 13px var(--serif);letter-spacing:.3em;color:var(--gold-hi)}
+/* kart */
+.wrap2{display:none;align-items:flex-start;justify-content:center;gap:24px;flex-wrap:wrap;width:100%}
+.wrap2.on{display:flex}
+.card{position:relative;width:min(400px,100%);min-height:clamp(500px,130vw,540px);border-radius:6px;background:linear-gradient(160deg,rgba(255,255,255,.2),rgba(255,255,255,.07));-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);border:1px solid rgba(255,255,255,.45);box-shadow:0 30px 60px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.4);overflow:hidden;text-align:center;padding:48px 7% 34px;animation:rise 1s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(70px) scale(.94)}to{opacity:1;transform:none}}
+.card svg.vn{position:absolute;pointer-events:none}
+.v1{display:none}.v2{right:4%;top:2%;width:30%;transform:scaleX(-1);opacity:.9}
+.m{font:600 clamp(30px,8vw,42px)/1 var(--serif);color:var(--ink);letter-spacing:.05em;margin:56px 0 6px;background:linear-gradient(180deg,#fbeab9,#e0b960 55%,#b98d3a);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.m em{font-style:normal;-webkit-text-fill-color:#e6c378;font-weight:500;padding:0 .12em}
+.fam{font:500 clamp(10px,2.7vw,12.5px)/1.7 var(--serif);letter-spacing:.2em;text-transform:uppercase;color:var(--ink2)}
+.nm{font:600 clamp(26px,7.4vw,38px)/1.15 var(--serif);letter-spacing:.1em;margin:14px 0 0;background:linear-gradient(180deg,#fbeab9,#e0b960 55%,#b98d3a);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.and{font:400 clamp(30px,8vw,42px)/1 var(--script);color:var(--gold);margin:2px 0}
+.dil{font:500 clamp(11px,3vw,14px)/1.7 var(--serif);letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin:16px auto 0;max-width:330px}
+.dt{font:600 clamp(11px,3vw,14px) var(--serif);letter-spacing:.2em;text-transform:uppercase;color:var(--ink);margin-top:14px}
+.yer{font:500 clamp(10px,2.7vw,12.5px) var(--serif);letter-spacing:.18em;text-transform:uppercase;color:var(--ink2);margin-top:6px}
+/* yan pencere */
+.side{width:min(340px,100%);display:grid;gap:16px;animation:rise 1s .25s cubic-bezier(.2,.7,.2,1) both}
+.gl{border:1px solid rgba(255,255,255,.4);border-radius:20px;background:linear-gradient(160deg,rgba(255,255,255,.18),rgba(255,255,255,.06));-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);padding:18px 20px;box-shadow:0 18px 40px rgba(0,0,0,.4)}
+.gl h2{font:italic 600 21px var(--serif);margin:0 0 8px;color:var(--gold)}
+.cd{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;text-align:center}
+.cd b{display:block;font:600 24px var(--serif)}.cd span{font-size:11px;letter-spacing:.08em;color:var(--ink2)}
+.rs{display:grid;gap:10px}.rs label{font-size:13px;color:var(--ink2);display:flex;flex-direction:column;gap:4px}
+.rs input,.rs select{background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.3);border-radius:12px;padding:10px 12px;font:inherit;color:var(--ink);min-width:0}
+.ch{display:flex;gap:8px}.ch label{flex:1;flex-direction:row;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.3);border-radius:12px;padding:10px;background:rgba(0,0,0,.25);font-size:14px;color:var(--ink);cursor:pointer}
+.ch input{accent-color:var(--gold)}
+.btn{border:0;border-radius:99px;padding:12px 20px;background:linear-gradient(180deg,#f7e4b0,#c99a47);color:#2b1d05;font:600 15px var(--sans);cursor:pointer}
+.msg{margin-top:8px;font-size:14px;padding:10px 12px;border-radius:12px;background:rgba(199,154,69,.2);border:1px solid rgba(199,154,69,.5)}
+.note{width:100%;text-align:center;font-size:13px;color:var(--ink2);margin-top:6px}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){.env,.env .flap,.card,.side{transition:none;animation:none}}
+</style><style>
+/* HUD: saydam veri gösterge ekranı */
+.bg{background:radial-gradient(50% 40% at 30% 30%,rgba(230,195,120,.16),transparent 70%),radial-gradient(40% 40% at 80% 75%,rgba(110,150,255,.12),transparent 70%),repeating-linear-gradient(0deg,rgba(230,195,120,.07) 0 1px,transparent 1px 44px),repeating-linear-gradient(90deg,rgba(230,195,120,.07) 0 1px,transparent 1px 44px),#05060a}
+.env .body{background:transparent;border:1px solid rgba(230,195,120,.7);box-shadow:0 0 30px rgba(230,195,120,.18),inset 0 0 30px rgba(230,195,120,.06);border-radius:4px}
+.env .body:before{background:linear-gradient(135deg,transparent 49.5%,rgba(230,195,120,.35) 50%,transparent 50.5%),linear-gradient(225deg,transparent 49.5%,rgba(230,195,120,.35) 50%,transparent 50.5%)}
+.env .flap{background:rgba(230,195,120,.08);border-radius:0}
+.seal{background:rgba(5,6,10,.6);border:1px solid var(--gold);color:var(--gold);box-shadow:0 0 18px rgba(230,195,120,.45),inset 0 0 12px rgba(230,195,120,.2);text-shadow:0 0 10px rgba(230,195,120,.8)}
+.env .mon{color:var(--gold);text-shadow:0 0 10px rgba(230,195,120,.6)}
+.env .hint{text-transform:uppercase;font-size:12px;letter-spacing:.3em;color:var(--gold);opacity:.8}
+.card{background:rgba(255,255,255,.015);-webkit-backdrop-filter:none;backdrop-filter:none;border:1px solid rgba(230,195,120,.22);border-radius:2px;box-shadow:0 0 50px rgba(230,195,120,.08),inset 0 0 60px rgba(230,195,120,.04)}
+.card:before,.gl:before{content:"";position:absolute;inset:-1px;pointer-events:none;background:
+linear-gradient(var(--gold),var(--gold)) 0 0/22px 2px no-repeat,linear-gradient(var(--gold),var(--gold)) 0 0/2px 22px no-repeat,
+linear-gradient(var(--gold),var(--gold)) 100% 0/22px 2px no-repeat,linear-gradient(var(--gold),var(--gold)) 100% 0/2px 22px no-repeat,
+linear-gradient(var(--gold),var(--gold)) 0 100%/22px 2px no-repeat,linear-gradient(var(--gold),var(--gold)) 0 100%/2px 22px no-repeat,
+linear-gradient(var(--gold),var(--gold)) 100% 100%/22px 2px no-repeat,linear-gradient(var(--gold),var(--gold)) 100% 100%/2px 22px no-repeat;filter:drop-shadow(0 0 4px rgba(230,195,120,.7))}
+.card:after{content:"";position:absolute;left:0;right:0;top:-30%;height:30%;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(230,195,120,.09),transparent);animation:scan 7s linear infinite}
+@keyframes scan{to{top:110%}}
+.m,.nm{filter:drop-shadow(0 0 10px rgba(230,195,120,.45))}
+.and{text-shadow:0 0 12px rgba(230,195,120,.7)}
+.fam,.yer{color:rgba(246,234,208,.62)}
+.gl{position:relative;background:rgba(255,255,255,.015);-webkit-backdrop-filter:none;backdrop-filter:none;border:1px solid rgba(230,195,120,.22);border-radius:2px;box-shadow:0 0 40px rgba(230,195,120,.06)}
+.gl h2{font:500 12px var(--sans);font-style:normal;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);text-shadow:0 0 8px rgba(230,195,120,.6);margin-bottom:12px}
+.gl h2:before{content:"// ";opacity:.6}
+.cd div{border:0;border-left:1px solid rgba(230,195,120,.3);border-radius:0;background:none;padding:4px 0}.cd div:first-child{border-left:0}
+.cd b{font:500 28px/1 var(--sans);letter-spacing:.04em;color:var(--ink);text-shadow:0 0 12px rgba(230,195,120,.5);font-variant-numeric:tabular-nums}
+.cd span{letter-spacing:.2em;color:var(--gold);opacity:.8}
+.rs input,.rs select{background:transparent;border:0;border-bottom:1px solid rgba(230,195,120,.5);border-radius:0;padding:9px 2px}
+.ch label{background:transparent;border:1px solid rgba(230,195,120,.4);border-radius:2px}
+.btn{background:transparent;color:var(--gold);border:1px solid var(--gold);border-radius:2px;text-transform:uppercase;letter-spacing:.24em;font-size:12.5px;box-shadow:0 0 18px rgba(230,195,120,.25),inset 0 0 12px rgba(230,195,120,.1);text-shadow:0 0 8px rgba(230,195,120,.7)}
+.btn:hover{background:rgba(230,195,120,.14)}
+.msg{background:transparent;border:1px solid rgba(230,195,120,.4);border-radius:2px}
+.top a{border-radius:2px;background:transparent;border-color:rgba(230,195,120,.5);color:var(--gold);letter-spacing:.08em}
+@media(prefers-reduced-motion:reduce){.card:after{animation:none}}
+</style></head><body>
+<div class="bg" aria-hidden="true"><b style="left:-10%;top:60%;width:50vw;height:50vw"></b><b style="right:-12%;top:-10%;width:46vw;height:46vw"></b>
+<i style="left:52%;top:8%;width:300px;height:300px"></i><i style="left:66%;top:34%;width:360px;height:340px"></i><i style="left:40%;top:48%;width:280px;height:260px"></i><i style="left:6%;top:12%;width:260px;height:240px"></i><i style="left:72%;top:66%;width:300px;height:280px"></i><i style="left:18%;top:62%;width:240px;height:220px"></i></div>
+<div class="top"><a href="dijital-dunyam.html">← Dijital Dünyam</a><span>Örnek davetiye</span></div>
+<main class="stage">
+<div class="env" id="env" role="button" tabindex="0" aria-label="Davetiyeyi aç"><div class="body"></div><div class="mon">14 · 06 · 2027</div><div class="flap"></div><div class="seal">E|C</div><div class="hint">Açmak için dokunun</div></div>
+<div class="wrap2" id="w2">
+<section class="card" aria-label="Davetiye"><svg class="vn v1" id="vA" viewBox="0 0 220 200" aria-hidden="true"></svg><svg class="vn v2" id="vB" viewBox="0 0 220 200" aria-hidden="true"></svg>
+<div class="m">E<em>|</em>C</div><div class="fam">Ayşe &amp; Kemal Yıldız<br>Nur &amp; Hakan Demir</div>
+<div class="nm">ELİF</div><div class="and">and</div><div class="nm" style="margin-top:0">CAN</div>
+<div class="dil">Yanımızda olmanızdan büyük mutluluk duyacağız.</div>
+<div class="dt">14 Haziran 2027 &nbsp;|&nbsp; 19:00 &nbsp;|&nbsp; Pazar</div><div class="yer">Mavi Köşk Bahçe Salonu · Eskişehir</div></section>
+<div class="side"><div class="gl"><h2>Büyük güne kalan süre</h2><div class="cd"><div><b id="g">0</b><span>GÜN</span></div><div><b id="s">0</b><span>SAAT</span></div><div><b id="d">0</b><span>DAKİKA</span></div><div><b id="n">0</b><span>SANİYE</span></div></div></div>
+<div class="gl"><h2>R.S.V.P.</h2><div class="rs"><div class="ch"><label><input type="radio" name="k" value="y" checked> Katılıyorum</label><label><input type="radio" name="k" value="n"> Katılamıyorum</label></div><label>Adınız soyadınız<input id="ad" placeholder="Adınız soyadınız"></label><label>Kaç kişi?<select id="kk"><option>1</option><option>2</option><option>3</option><option>4</option></select></label><button class="btn" id="kb" type="button">Cevabımı gönder</button></div><div class="msg" id="km" hidden></div></div></div>
+<p class="note">Bu bir örnek ekrandır. Gerçek davetiyede cevaplar çiftin yönetim paneline düşer.</p>
+</div></main>
+<script>
+(function(){
+var NS='http://www.w3.org/2000/svg';
+function vine(svg,id){svg.innerHTML='<defs><linearGradient id="'+id+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6e3ad"/><stop offset=".55" stop-color="#d4a84f"/><stop offset="1" stop-color="#a97c2c"/></linearGradient></defs>';
+ var st=[[[4,2],[40,30],[70,60],[100,120]],[[4,2],[50,10],[100,20],[150,50]]];
+ st.forEach(function(c,k){var p=document.createElementNS(NS,'path');p.setAttribute('d','M'+c[0]+' C'+c[1]+' '+c[2]+' '+c[3]);p.setAttribute('fill','none');p.setAttribute('stroke','url(#'+id+')');p.setAttribute('stroke-width','.9');svg.appendChild(p);
+  for(var i=1;i<=9;i++){var t=i/10,u=1-t;var x=u*u*u*c[0][0]+3*u*u*t*c[1][0]+3*u*t*t*c[2][0]+t*t*t*c[3][0],y=u*u*u*c[0][1]+3*u*u*t*c[1][1]+3*u*t*t*c[2][1]+t*t*t*c[3][1];
+   var dx=3*u*u*(c[1][0]-c[0][0])+6*u*t*(c[2][0]-c[1][0])+3*t*t*(c[3][0]-c[2][0]),dy=3*u*u*(c[1][1]-c[0][1])+6*u*t*(c[2][1]-c[1][1])+3*t*t*(c[3][1]-c[2][1]),a=Math.atan2(dy,dx)*180/Math.PI;
+   [1,-1].forEach(function(sd){var e=document.createElementNS(NS,'ellipse');e.setAttribute('cx',0);e.setAttribute('cy',0);e.setAttribute('rx',5.2-t*1.6);e.setAttribute('ry',2.1-t*.5);e.setAttribute('fill','url(#'+id+')');e.setAttribute('transform','translate('+x+' '+y+') rotate('+(a+sd*(48+i*2))+') translate(6 0)');svg.appendChild(e)})}})}
+vine(document.getElementById('vA'),'ga');vine(document.getElementById('vB'),'gb');
+var env=document.getElementById('env'),w2=document.getElementById('w2');
+function ac(){if(env.classList.contains('open'))return;env.classList.add('open');setTimeout(function(){env.classList.add('gone');w2.classList.add('on')},1100)}
+env.onclick=ac;env.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();ac()}};
+var T=new Date('2027-06-14T19:00:00').getTime();function tk(){var s=Math.floor(Math.max(0,T-Date.now())/1000);document.getElementById('g').textContent=Math.floor(s/86400);document.getElementById('s').textContent=Math.floor(s%86400/3600);document.getElementById('d').textContent=Math.floor(s%3600/60);document.getElementById('n').textContent=s%60}tk();setInterval(tk,1000);
+document.getElementById('kb').onclick=function(){var a=document.getElementById('ad').value.trim(),m=document.getElementById('km');m.hidden=false;if(!a){m.textContent='Adınızı soyadınızı yazın.';return}var y=document.querySelector('input[name=k]:checked').value==='y';m.textContent=y?a+', '+document.getElementById('kk').value+' kişi olarak katılımınız alındı (örnek).':a+', cevabınız alındı (örnek). Teşekkür ederiz.'};
+})();
+</script></body></html>
