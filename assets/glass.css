@@ -119,20 +119,13 @@ header{background:rgba(var(--tint),.30)!important;backdrop-filter:blur(20px) sat
 .pill.am,.dm-cta,.b1,button.am,.am{text-shadow:none!important}
 th{text-shadow:none}
 
-/* v7 üst menü: sayfa başında sade, kaydırınca belirir */
-@media(min-width:1280px){
-header nav{display:flex!important;gap:20px;align-items:center;opacity:0;transform:translateY(-8px);pointer-events:none;transition:opacity .35s,transform .35s;margin:0 auto}
-header.sc nav{opacity:1;transform:none;pointer-events:auto}
+/* v9 üst menü: her zaman görünür, kaydırınca da yerinde kalır (header sticky) */
+@media(min-width:900px){
+header nav{display:flex!important;gap:20px;align-items:center;margin:0 auto;position:static}
 header nav a{color:#fff;font-weight:500;font-size:14.5px;white-space:nowrap;text-shadow:0 1px 8px rgba(0,8,30,.5);padding:6px 2px;border-bottom:2px solid transparent;transition:border-color .2s,color .2s}
 header nav a:hover,header nav a.cur-p{color:#FFC21A;border-bottom-color:#FFC21A}
 }
-
-/* v8 orta genişlik (900-1279px): kaydırınca üst menü belirir, dil ve buton geçici gizlenir */
 @media(min-width:900px) and (max-width:1279px){
-header nav{display:flex!important;gap:18px;align-items:center;opacity:0;transform:translateY(-8px);pointer-events:none;transition:opacity .35s,transform .35s;margin:0 auto;position:absolute;left:50%;top:50%;translate:-50% -50%}
-header .nav{position:relative}
-header.sc nav{opacity:1;transform:none;pointer-events:auto}
-header.sc .rt .lang,header.sc .rt .pill{opacity:0;pointer-events:none;width:0;overflow:hidden;margin:0;padding:0;border:0}
-header nav a{color:#fff;font-weight:500;font-size:14px;white-space:nowrap;text-shadow:0 1px 8px rgba(0,8,30,.5);padding:6px 2px;border-bottom:2px solid transparent}
-header nav a:hover,header nav a.cur-p{color:#FFC21A;border-bottom-color:#FFC21A}
+header nav{gap:18px}header nav a{font-size:14px}
+header nav a:nth-child(n+4){display:none}
 }
