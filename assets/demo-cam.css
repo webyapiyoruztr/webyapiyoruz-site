@@ -26,3 +26,17 @@ footer a{color:#fff;text-decoration:underline}
 .card .ic{background:rgba(255,255,255,.16)!important}
 .bar{background:rgba(255,255,255,.16)!important}
 .step span{background:rgba(255,255,255,.2)!important;border:1.5px solid rgba(255,255,255,.55)}
+
+/* v3 premium cam */
+.sv>div,.tb,.tc>div,.sl>div,.ad>div,.qa details,.kd>div,.ks>div,.pr>div,.hb>div,.stats,.card,.phone,.v,.form,form,body.v3 .st div,.st div,.ct>div,.rg form{background:linear-gradient(135deg,rgba(255,255,255,.26) 0%,rgba(255,255,255,.07) 28%,rgba(255,255,255,.02) 58%,rgba(255,255,255,.12) 100%),radial-gradient(120% 90% at 0% 0%,rgba(255,255,255,.14),transparent 55%),color-mix(in srgb,var(--bg) 40%,transparent)!important;border:1.5px solid!important;border-color:rgba(255,255,255,.85) rgba(255,255,255,.32) rgba(255,255,255,.22) rgba(255,255,255,.6)!important;backdrop-filter:blur(26px) saturate(1.8) brightness(1.1)!important;-webkit-backdrop-filter:blur(26px) saturate(1.8) brightness(1.1)!important;box-shadow:inset 1.5px 1.5px 0 rgba(255,255,255,.95),inset -1px -1px 0 rgba(255,255,255,.28),inset 0 0 28px rgba(255,255,255,.10),0 0 0 1px rgba(255,255,255,.07),0 2px 6px rgba(0,8,30,.25),0 30px 60px -10px rgba(0,8,30,.55)!important;transition:transform .25s ease,box-shadow .25s ease}
+
+h1,h2,.hero p{text-shadow:0 2px 18px rgba(0,8,30,.55)}
+
+/* v4 net yazı */
+body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3,h4,b,strong{text-shadow:0 1px 1px rgba(0,8,30,.55),0 2px 14px rgba(0,8,30,.45)}
+p,span,li,small,label,td,th,summary{color:rgba(255,255,255,.97);text-shadow:0 1px 1px rgba(0,8,30,.6),0 1px 10px rgba(0,8,30,.4)}
+p,li,td,small,label{font-weight:500}
+.sv>div,.tb,.tc>div,.sl>div,.ad>div,.qa details,.kd>div,.ks>div,.pr>div,.hb>div,.stats,.card,.phone,.v,.form,form,.st div,.ct>div,.rg form{background:linear-gradient(135deg,rgba(255,255,255,.22) 0%,rgba(255,255,255,.05) 30%,rgba(255,255,255,.02) 60%,rgba(255,255,255,.10) 100%),color-mix(in srgb,var(--bg) 54%,transparent)!important}
+.b1,.b2.on,.slots button.on,header a[class*=b],.hd a:last-child{text-shadow:none}
+th,.tb th,thead *{text-shadow:none}
