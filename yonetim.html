@@ -1,0 +1,58 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Yönetim · Web Yapıyoruz</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}body{font:14px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif;background:linear-gradient(160deg,#123c82,#0a2a63 55%,#07183d);color:#fff;min-height:100vh;padding:18px 16px 40px}
+.w{max-width:1040px;margin:0 auto}h1{font-size:20px;margin-bottom:14px}
+.card{border:1px solid rgba(210,232,255,.4);border-radius:18px;background:rgba(6,18,48,.55);padding:16px;margin-bottom:14px}
+input,select,button{font:inherit;color:#fff}input,select{padding:9px 12px;border-radius:12px;border:1px solid rgba(225,240,255,.5);background:rgba(255,255,255,.08);width:100%}select option{color:#111}
+button{cursor:pointer;padding:9px 16px;border-radius:999px;border:1px solid rgba(225,240,255,.6);background:rgba(255,255,255,.07);font-weight:700}
+button.p,.tb button.on{background:#f6c24a;border-color:#f6c24a;color:#1b1500}
+.tb{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.g{display:grid;gap:10px}.g2{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.st{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}.st div{border:1px solid rgba(210,232,255,.3);border-radius:14px;padding:10px 12px;background:rgba(255,255,255,.05)}.st span{display:block;font-size:12px;opacity:.8}.st b{font-size:21px}
+.tw{overflow-x:auto;border:1px solid rgba(210,232,255,.28);border-radius:14px}table{width:100%;border-collapse:collapse;min-width:640px}th,td{padding:9px 12px;text-align:left;border-top:1px solid rgba(210,232,255,.2)}th{border-top:0;background:rgba(255,255,255,.07);font-size:12px}
+.tk{width:26px;height:26px;padding:0;border-radius:8px;color:transparent}.tk.on{background:#5eead4;border-color:#5eead4;color:#04332e}
+.bar{height:10px;border-radius:99px;background:rgba(255,255,255,.18);overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,#f6c24a,#fff)}
+.m{font-size:13px;margin-top:8px;min-height:18px}[hidden]{display:none!important}.mr{display:grid;grid-template-columns:90px 1fr 110px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+</style></head><body><div class="w">
+<h1>Yönetim paneli</h1>
+<div class="card" id="lg" style="max-width:380px"><div class="g"><input id="em" type="email" placeholder="E-posta" autocomplete="username"><input id="pw" type="password" placeholder="Şifre" autocomplete="current-password"><button class="p" id="gi" type="button">Giriş yap</button></div><p class="m" id="lm"></p></div>
+<div id="ap" hidden>
+<div class="tb"><button class="on" data-t="s" type="button">Siparişler</button><button data-t="b" type="button">Bütçe</button><button data-t="f" type="button">Fiyatlar</button><button id="cik" type="button">Çıkış</button></div>
+<div data-p="s"><div class="card"><div class="g g2"><input id="n1" placeholder="Ad soyad"><input id="n2" placeholder="Telefon"><select id="n3"></select><input id="n4" type="number" placeholder="Tutar ₺"><input id="n5" type="date"></div><div style="margin-top:10px"><button class="p" id="ek" type="button">Sipariş ekle</button> <span class="m" id="em2"></span></div></div>
+<div class="tw"><table><thead><tr><th>Tarih</th><th>Ad soyad</th><th>Telefon</th><th>Paket</th><th>Tutar</th><th>Ödendi</th><th></th></tr></thead><tbody id="tb"></tbody></table></div></div>
+<div data-p="b" hidden><div class="st"><div><span>Toplam sipariş</span><b id="b1">0</b></div><div><span>Alınan (ödendi)</span><b id="b2">0 ₺</b></div><div><span>Bekleyen</span><b id="b3">0 ₺</b></div><div><span>Bu ay alınan</span><b id="b4">0 ₺</b></div></div><div class="card"><b>Aylara göre</b><div id="ay"></div></div><div class="card"><b>Pakete göre</b><div id="pk"></div></div></div>
+<div data-p="f" hidden><div class="card"><div id="fl" class="g"></div><p class="m" id="fm"></p></div></div>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script><script src="assets/sb-config.js?v=1"></script>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)},tl=function(n){return Number(n||0).toLocaleString('tr-TR')+' ₺'};
+if(!window.SB_URL||window.SB_URL.indexOf('BURAYA')===0){$('lm').textContent='Supabase bilgileri henüz girilmedi (assets/sb-config.js).';return}
+var c=window.supabase.createClient(window.SB_URL,window.SB_KEY),S=[],F=[];
+function esc(s){var d=document.createElement('div');d.textContent=s==null?'':s;return d.innerHTML}
+function giris(){c.auth.getSession().then(function(r){var s=r.data.session;$('lg').hidden=!!s;$('ap').hidden=!s;if(s)yukle()})}
+$('gi').onclick=function(){c.auth.signInWithPassword({email:$('em').value.trim(),password:$('pw').value}).then(function(r){if(r.error){$('lm').textContent='Giriş olmadı: e-posta veya şifre hatalı.';return}giris()})};
+$('cik').onclick=function(){c.auth.signOut().then(giris)};
+function yukle(){Promise.all([c.from('siparisler').select('*').order('tarih',{ascending:false}),c.from('fiyatlar').select('*').order('ad')]).then(function(a){
+ if(a[0].error||a[1].error){$('lg').hidden=false;$('ap').hidden=true;$('lm').textContent='Bu hesap yönetici olarak tanımlı değil.';return}
+ S=a[0].data;F=a[1].data;ciz()})}
+function ciz(){
+ $('n3').innerHTML=F.map(function(f){return '<option value="'+esc(f.ad)+'" data-f="'+(f.fiyat||0)+'">'+esc(f.ad)+'</option>'}).join('');
+ $('tb').innerHTML=S.map(function(s){return '<tr><td>'+esc(s.tarih)+'</td><td><b>'+esc(s.ad)+'</b></td><td>'+esc(s.telefon)+'</td><td>'+esc(s.paket)+'</td><td>'+tl(s.tutar)+'</td><td><button class="tk'+(s.odendi?' on':'')+'" data-i="'+s.id+'" type="button">✓</button></td><td><button data-d="'+s.id+'" type="button">Sil</button></td></tr>'}).join('')||'<tr><td colspan="7">Henüz sipariş yok.</td></tr>';
+ var al=0,bk=0,ay={},pk={},bu=new Date().toISOString().slice(0,7),bay=0;
+ S.forEach(function(s){var t=Number(s.tutar||0);if(s.odendi){al+=t;var m=String(s.tarih).slice(0,7);ay[m]=(ay[m]||0)+t;if(m===bu)bay+=t}else bk+=t;pk[s.paket]=(pk[s.paket]||0)+1});
+ $('b1').textContent=S.length;$('b2').textContent=tl(al);$('b3').textContent=tl(bk);$('b4').textContent=tl(bay);
+ var mx=Math.max.apply(null,Object.keys(ay).map(function(k){return ay[k]}).concat([1]));
+ $('ay').innerHTML=Object.keys(ay).sort().reverse().map(function(k){return '<div class="mr"><span>'+k+'</span><div class="bar"><i style="width:'+Math.round(ay[k]*100/mx)+'%"></i></div><b>'+tl(ay[k])+'</b></div>'}).join('')||'<p class="m">Ödenmiş sipariş yok.</p>';
+ $('pk').innerHTML=Object.keys(pk).map(function(k){return '<div class="mr"><span>'+esc(k)+'</span><div></div><b>'+pk[k]+' adet</b></div>'}).join('')||'<p class="m">Veri yok.</p>';
+ $('fl').innerHTML=F.map(function(f){return '<div class="g g2"><b style="align-self:center">'+esc(f.ad)+'</b><input data-k="'+f.anahtar+'" type="number" placeholder="Fiyat ₺" value="'+(f.fiyat==null?'':f.fiyat)+'"><button data-s="'+f.anahtar+'" type="button">Kaydet</button></div>'}).join('')}
+document.addEventListener('click',function(e){var t=e.target.closest('.tk');
+ if(t){var i=t.getAttribute('data-i'),s=S.filter(function(x){return String(x.id)===i})[0];c.from('siparisler').update({odendi:!s.odendi}).eq('id',i).then(yukle);return}
+ var d=e.target.closest('[data-d]');if(d){c.from('siparisler').delete().eq('id',d.getAttribute('data-d')).then(yukle);return}
+ var sv=e.target.closest('[data-s]');if(sv){var k=sv.getAttribute('data-s'),v=document.querySelector('input[data-k="'+k+'"]').value;c.from('fiyatlar').update({fiyat:v===''?null:Number(v)}).eq('anahtar',k).then(function(r){$('fm').textContent=r.error?'Kaydedilemedi.':'Kaydedildi. Siteye hemen yansır.'});return}
+ var b=e.target.closest('.tb button[data-t]');if(b){[].forEach.call(document.querySelectorAll('.tb button[data-t]'),function(x){x.classList.toggle('on',x===b)});[].forEach.call(document.querySelectorAll('[data-p]'),function(p){p.hidden=p.getAttribute('data-p')!==b.getAttribute('data-t')})}});
+$('n3').onchange=function(){var o=$('n3').selectedOptions[0];if(o)$('n4').value=o.getAttribute('data-f')||''};
+$('ek').onclick=function(){var a=$('n1').value.trim();if(!a){$('em2').textContent='Ad yazın.';return}
+ c.from('siparisler').insert({ad:a,telefon:$('n2').value,paket:$('n3').value,tutar:Number($('n4').value||0),tarih:$('n5').value||new Date().toISOString().slice(0,10)}).then(function(r){$('em2').textContent=r.error?'Eklenemedi.':'Eklendi.';if(!r.error){$('n1').value=$('n2').value='';yukle()}})};
+giris();
+})();
+</script></body></html>
