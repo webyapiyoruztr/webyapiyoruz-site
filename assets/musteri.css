@@ -28,3 +28,4 @@ body{font:15px/1.5 'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:v
 
 .sth{width:100%;max-width:300px;border-radius:12px;border:1px solid var(--ln)}
 .mw select{width:100%;padding:11px 13px;border-radius:12px;border:1px solid rgba(225,240,255,.5);background:rgba(255,255,255,.08);color:#fff;font:inherit;appearance:auto}.mw select option{color:#111;background:#fff}
+.gl{font-size:13px;color:rgba(255,255,255,.78);margin:4px 0 -6px;display:block}
