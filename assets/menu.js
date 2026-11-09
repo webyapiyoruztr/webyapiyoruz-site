@@ -18,7 +18,7 @@ var I={'sablonlar.html':'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect 
 'sektorler.html':'<path d="M4 21V7l8-4 8 4v14M9 21v-6h6v6M8 10h.01M12 10h.01M16 10h.01"/>',
 'panel.html':'<path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/>',
 'nasil-calisir.html':'<circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 6H15a3 3 0 010 6H9a3 3 0 000 6h6.5"/>',
-'sss.html':'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 115 0c0 1.7-2.5 2-2.5 4M12 17h.01"/>'};
+'seo.html':'<circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/>','sosyal-medya.html':'<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6" fill="currentColor"/>','sss.html':'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 115 0c0 1.7-2.5 2-2.5 4M12 17h.01"/>'};
 var list='';[].forEach.call(nav.querySelectorAll('a'),function(a){var h=a.getAttribute('href');
 list+='<a href="'+h+'"'+(a.classList.contains('cur-p')?' class="on"':'')+'>'+ic(I[h]||'<circle cx="12" cy="12" r="4"/>')+'<span>'+a.textContent+'</span></a>';});
 m.innerHTML='<div class="dm-bg"></div><aside class="dm-p"><div class="dm-h">Menü</div>'+list+'<a href="panelim.html">'+ic('<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>')+'<span>Panelim / Giriş</span></a><a class="dm-cta" href="iletisim.html">'+ic('<path d="M4 5h16v11H9l-5 4z"/>')+'<span>Bize ulaşın</span></a><div class="dm-f">Dijital dünyaya hazır mısınız?</div></aside>';

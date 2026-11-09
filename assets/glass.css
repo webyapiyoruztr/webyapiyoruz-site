@@ -127,7 +127,7 @@ header nav a:hover,header nav a.cur-p{color:#FFC21A;border-bottom-color:#FFC21A}
 }
 @media(min-width:900px) and (max-width:1279px){
 header nav{gap:18px}header nav a{font-size:14px}
-header nav a:nth-child(n+4){display:none}
+header nav a:nth-child(n+6){display:none}
 }
 
 /* v10 önizleme penceresi: üst çubuk yazıları ve kapatma düğmesi okunur (koyu) */
