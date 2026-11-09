@@ -32,53 +32,72 @@ th{border-top:0;color:var(--mut);font-weight:500;font-size:13.5px}
 .mr{display:grid;grid-template-columns:90px 1fr 120px;gap:12px;align-items:center;margin:9px 0;font-size:14.5px}
 .fr{display:grid;grid-template-columns:1fr 160px 100px;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--ln)}.fr:first-child{border-top:0}
 @media(max-width:600px){.fr{grid-template-columns:1fr 1fr}.fr b{grid-column:1/-1}}
+.tq{background:var(--pn);border:1px solid var(--ln);border-radius:14px;padding:16px 18px;margin-bottom:14px;display:grid;gap:10px}
+.tq .th{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.tq .th b{font:700 18px 'Barlow Condensed',sans-serif;letter-spacing:.02em}.tq .th small{color:var(--mut)}.tq .th .sp{flex:1}
+.ch{display:inline-block;padding:3px 11px;border-radius:99px;font-size:12.5px;font-weight:600;background:#2d2e32;color:var(--mut)}.ch.y{background:rgba(224,184,98,.2);color:var(--au)}.ch.k{background:rgba(94,234,160,.2);color:#8fe8b9}
+.tq .ky{color:var(--mut);font-size:14px}.tq .ky b{color:var(--tx);font-weight:600}
+.tq .bl{display:grid;grid-template-columns:140px 1fr 90px 90px;gap:10px;align-items:center}
+@media(max-width:700px){.tq .bl{grid-template-columns:1fr 1fr}.tq .bl input:nth-child(2){grid-column:1/-1}}
+.bi{border:1px dashed var(--ln);border-radius:10px;padding:10px 12px;font-size:14px;display:grid;gap:3px}.bi span{color:var(--mut)}
+a.lk{color:var(--au);text-decoration:none}
 </style></head><body>
 <div class="top"><div class="br">webyapiyoruz.tr<span>/yönetim</span></div><div class="sp"></div><small id="who"></small><button class="bt" id="cik" type="button" hidden>Çıkış</button></div>
 <div class="w">
 <div class="card" id="lg" style="max-width:380px;margin:60px auto"><h2>Yönetici girişi</h2><div class="g"><input id="em" type="email" placeholder="E-posta" autocomplete="username"><div style="position:relative"><input id="pw" type="password" placeholder="Şifre" autocomplete="current-password" style="padding-right:84px"><button type="button" class="bt" id="gz" style="position:absolute;right:5px;top:50%;transform:translateY(-50%);padding:4px 12px;font-size:13px">Göster</button></div><button class="bt p" id="gi" type="button">Giriş yap</button></div><p class="m" id="lm"></p></div>
 <div id="ap" hidden>
-<div class="tb"><button class="on" data-t="o" type="button">Özet</button><button data-t="s" type="button">Siparişler</button><button data-t="b" type="button">Bütçe</button><button data-t="f" type="button">Paketler ve fiyatlar</button></div>
-<div data-p="o"><div class="st"><div><span>Toplam sipariş</span><b id="z1">0</b></div><div><span>Ödemesi alınan</span><b id="z2">0</b></div><div><span>Ödeme bekleyen</span><b id="z3">0</b></div><div><span>Alınan tutar</span><b id="z4">0 ₺</b></div><div><span>Bekleyen tutar</span><b id="z5">0 ₺</b></div><div><span>Fiyatı girilen paket</span><b id="z6">0</b></div></div></div>
-<div data-p="s" hidden><div class="card"><h2>Yeni sipariş</h2><div class="g g2"><input id="n1" placeholder="Ad soyad"><input id="n2" placeholder="Telefon"><select id="n3"></select><input id="n4" type="number" placeholder="Tutar ₺"><input id="n5" type="date"></div><div style="margin-top:12px"><button class="bt p" id="ek" type="button">Sipariş ekle</button> <span class="m" id="em2"></span></div></div>
-<div class="tw"><table><thead><tr><th>Tarih · saat</th><th>Kod</th><th>Müşteri</th><th>Telefon</th><th>Paket</th><th>Tutar</th><th>Ödendi</th><th></th></tr></thead><tbody id="tb"></tbody></table></div></div>
-<div data-p="b" hidden><div class="st"><div><span>Toplam sipariş</span><b id="b1">0</b></div><div><span>Alınan (ödendi)</span><b id="b2">0 ₺</b></div><div><span>Bekleyen</span><b id="b3">0 ₺</b></div><div><span>Bu ay alınan</span><b id="b4">0 ₺</b></div></div><div class="card"><h2>Aylara göre alınan</h2><div id="ay"></div></div><div class="card"><h2>Pakete göre sipariş</h2><div id="pk"></div></div></div>
-<div data-p="f" hidden><div class="card"><h2>Ödeme bilgileri (müşteriye gösterilir)</h2><div class="g g2"><input id="a1" placeholder="Banka adı"><input id="a2" placeholder="Hesap sahibi"><input id="a3" placeholder="IBAN (TR..)"><input id="a4" placeholder="WhatsApp (905...)"></div><input id="a5" placeholder="Not (isteğe bağlı)" style="margin-top:10px"><div style="margin-top:12px"><button class="bt p" id="ak" type="button">Ödeme bilgilerini kaydet</button> <span class="m" id="am"></span></div></div><div class="card"><h2>Paket fiyatları</h2><div id="fl"></div><p class="m" id="fm"></p></div></div>
+<div class="tb"><button class="on" data-t="o" type="button">Özet</button><button data-t="s" type="button">Teklifler</button><button data-t="b" type="button">Bütçe</button><button data-t="f" type="button">Ödeme bilgileri</button></div>
+<div data-p="o"><div class="st"><div><span>Toplam teklif</span><b id="z1">0</b></div><div><span>Fiyat bekleyen</span><b id="z2">0</b></div><div><span>Teklif verilen</span><b id="z3">0</b></div><div><span>Ödeme bekleyen</span><b id="z4">0</b></div><div><span>Ödenen</span><b id="z5">0</b></div><div><span>Alınan tutar</span><b id="z6">0 ₺</b></div></div></div>
+<div data-p="s" hidden><div class="card"><h2>Elle kayıt ekle (kendi sattığın iş)</h2><div class="g g2"><input id="n1" placeholder="Müşteri adı"><input id="n2" placeholder="Telefon"><input id="n3" placeholder="Ne satıldı (ör. Özler sürücü kursu sitesi)"><input id="n4" type="number" placeholder="Tutar ₺"></div><div style="margin-top:12px"><button class="bt p" id="ek" type="button">Kaydı ekle</button> <span class="m" id="em2"></span></div></div><div id="tq"></div></div>
+<div data-p="b" hidden><div class="st"><div><span>Toplam teklif</span><b id="b1">0</b></div><div><span>Alınan (ödendi)</span><b id="b2">0 ₺</b></div><div><span>Bekleyen (kabul edildi)</span><b id="b3">0 ₺</b></div><div><span>Bu ay alınan</span><b id="b4">0 ₺</b></div></div><div class="card"><h2>Aylara göre alınan</h2><div id="ay"></div></div><div class="card"><h2>Şablona göre teklif</h2><div id="pk"></div></div></div>
+<div data-p="f" hidden><div class="card"><h2>Ödeme bilgileri (müşteriye gösterilir)</h2><div class="g g2"><input id="a1" placeholder="Banka adı"><input id="a2" placeholder="Hesap sahibi"><input id="a3" placeholder="IBAN (TR..)"><input id="a4" placeholder="WhatsApp (905...)"></div><input id="a5" placeholder="Not (isteğe bağlı)" style="margin-top:10px"><div style="margin-top:12px"><button class="bt p" id="ak" type="button">Ödeme bilgilerini kaydet</button> <span class="m" id="am"></span></div></div></div>
 </div></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/dist/umd/supabase.min.js"></script><script src="assets/sb-config.js?v=38"></script>
 <script>
 (function(){
 var $=function(i){return document.getElementById(i)},tl=function(n){return Number(n||0).toLocaleString('tr-TR')+' ₺'};
-$('gz').onclick=function(){var p=$('pw'),a=p.type==='password';p.type=a?'text':'password';$('gz').textContent=a?'Gizle':'Göster'};
-if(!window.SB_URL||window.SB_URL.indexOf('BURAYA')===0){$('lm').textContent='Supabase bilgileri henüz girilmedi (assets/sb-config.js).';return}
-var c=window.supabase.createClient(window.SB_URL,window.SB_KEY),S=[],F=[];
+if(!window.SB_URL||window.SB_URL.indexOf('BURAYA')===0||!window.supabase){$('lm').textContent='Supabase bilgileri henüz girilmedi (assets/sb-config.js).';return}
+var c=window.supabase.createClient(window.SB_URL,window.SB_KEY),T=[];
+var TUR={bu_site:'Bu site',benzer:'Buna benzer site',sektor:'Sektöre özel sistem',program:'Program',elle:'Elle kayıt'};
 function zt(s){var d=new Date(s);return isNaN(d)?String(s||''):d.toLocaleDateString('tr-TR')+' '+d.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'})}
 function esc(s){var d=document.createElement('div');d.textContent=s==null?'':s;return d.innerHTML}
 function giris(){c.auth.getSession().then(function(r){var s=r.data.session;$('lg').hidden=!!s;$('ap').hidden=!s;$('cik').hidden=!s;$('who').textContent=s?s.user.email:'';if(s)yukle()})}
 $('gi').onclick=function(){c.auth.signInWithPassword({email:$('em').value.trim(),password:$('pw').value}).then(function(r){if(r.error){$('lm').textContent='Giriş olmadı: e-posta veya şifre hatalı.';return}giris()})};
 $('gz').onclick=function(){var p=$('pw'),a=p.type==='password';p.type=a?'text':'password';$('gz').textContent=a?'Gizle':'Göster'};
 $('cik').onclick=function(){c.auth.signOut().then(giris)};
-function yukle(){Promise.all([c.from('siparisler').select('*').order('id',{ascending:false}),c.from('yoneticiler').select('eposta'),c.from('fiyatlar').select('*').order('ad'),c.from('ayarlar').select('*')]).then(function(a){
- if(a[0].error||a[2].error||a[1].error||!(a[1].data||[]).length){$('lg').hidden=false;$('ap').hidden=true;$('lm').textContent='Bu hesap yönetici olarak tanımlı değil.';return}
- S=a[0].data;F=a[2].data;var AA={};(a[3].data||[]).forEach(function(x){AA[x.anahtar]=x.deger});if(!$('a1').dataset.d){$('a1').value=AA.banka_adi||'';$('a2').value=AA.hesap_sahibi||'';$('a3').value=AA.iban||'';$('a4').value=AA.whatsapp||'';$('a5').value=AA.odeme_notu||'';$('a1').dataset.d=1}ciz()})}
+function yukle(){Promise.all([c.from('teklifler').select('*').order('id',{ascending:false}),c.from('yoneticiler').select('eposta'),c.from('ayarlar').select('*')]).then(function(a){
+ if(a[0].error){$('lg').hidden=false;$('ap').hidden=true;$('lm').textContent='Teklif tablosu bulunamadı. Supabase-Teklif-Kurulum dosyasını çalıştırın.';return}
+ if(a[1].error||!(a[1].data||[]).length){$('lg').hidden=false;$('ap').hidden=true;$('lm').textContent='Bu hesap yönetici olarak tanımlı değil.';return}
+ T=a[0].data;var AA={};(a[2].data||[]).forEach(function(x){AA[x.anahtar]=x.deger});if(!$('a1').dataset.d){$('a1').value=AA.banka_adi||'';$('a2').value=AA.hesap_sahibi||'';$('a3').value=AA.iban||'';$('a4').value=AA.whatsapp||'';$('a5').value=AA.odeme_notu||'';$('a1').dataset.d=1}ciz()})}
+function yol(k){k=String(k||'').toLowerCase();return k==='kurs'?'demo/kurs/index.html':'demo/'+k+'.html'}
 function ciz(){
- $('n3').innerHTML=F.map(function(f){return '<option value="'+esc(f.ad)+'" data-f="'+(f.fiyat||0)+'">'+esc(f.ad)+'</option>'}).join('');
- $('tb').innerHTML=S.map(function(s){return '<tr><td>'+esc(zt(s.olusturma||s.tarih))+'</td><td>'+esc(s.kod)+'</td><td><b>'+esc(s.ad)+'</b><br><small style="color:var(--mut)">'+esc(s.eposta||'')+'</small></td><td>'+esc(s.telefon)+'</td><td>'+esc(s.paket)+(s.sablon?'<br><small style="color:var(--mut)">Şablon: '+esc(s.sablon)+'</small>':'')+'</td><td>'+tl(s.tutar)+'</td><td><button class="tk'+(s.odendi?' on':'')+'" data-i="'+s.id+'" type="button">✓</button></td><td><button class="bt" data-d="'+s.id+'" type="button">Sil</button></td></tr>'}).join('')||'<tr><td colspan="8">Henüz sipariş yok.</td></tr>';
+ var bos=!T.length;
+ $('tq').innerHTML=T.map(function(t){
+  var dc=t.odendi?'k':(t.durum==='Teklif verildi'||t.durum==='Kabul edildi')?'y':'';
+  var bi='';if(t.bilgi){var L=[['Firma','firma'],['Telefon','telefon'],['E-posta','eposta'],['Adres','adres'],['Çalışma saatleri','saat'],['Sosyal medya','sosyal'],['Hizmetler','hizmet']];bi='<div class="bi"><b>Müşterinin site bilgileri</b>'+L.filter(function(x){return t.bilgi[x[1]]}).map(function(x){return '<div><span>'+x[0]+':</span> '+esc(t.bilgi[x[1]])+'</div>'}).join('')+'</div>'}
+  return '<div class="tq"><div class="th"><b>'+esc(t.kod)+'</b><small>'+esc(zt(t.olusturma))+'</small><span class="ch '+dc+'">'+esc(t.durum)+'</span><span class="sp"></span><button class="bt" data-d="'+t.id+'" type="button">Sil</button></div>'
+  +'<div><b>'+esc(t.ad)+'</b> <span class="ky">'+esc(t.eposta||'')+(t.telefon?' · '+esc(t.telefon):'')+'</span></div>'
+  +'<div class="ky"><b>'+esc(TUR[t.tur]||'—')+'</b>'+(t.sablon?' · Şablon: <b>'+esc(String(t.sablon).toUpperCase())+'</b> · <a class="lk" target="_blank" rel="noopener" href="'+yol(t.sablon)+'">Şablonu aç</a>':'')+(t.sektor?' · '+esc(t.sektor):'')+'</div>'
+  +(t.not_?'<div class="ky">Not: '+esc(t.not_)+'</div>':'')+bi
+  +'<div class="bl"><input data-f="'+t.id+'" type="number" placeholder="Fiyat ₺" value="'+(t.fiyat==null?'':t.fiyat)+'"><input data-y="'+t.id+'" placeholder="Müşteriye not (isteğe bağlı)" value="'+esc(t.yanit||'')+'"><button class="bt p" data-g="'+t.id+'" type="button">Teklifi gönder</button><div><button class="tk'+(t.odendi?' on':'')+'" data-i="'+t.id+'" type="button" title="Ödendi">✓</button> <span class="ky">Ödendi</span></div></div></div>'}).join('')||'<p class="m">Henüz teklif yok.</p>';
  var al=0,bk=0,ay={},pk={},bu=new Date().toISOString().slice(0,7),bay=0;
- S.forEach(function(s){var t=Number(s.tutar||0);if(s.odendi){al+=t;var m=String(s.tarih).slice(0,7);ay[m]=(ay[m]||0)+t;if(m===bu)bay+=t}else bk+=t;pk[s.paket]=(pk[s.paket]||0)+1});
- $('b1').textContent=S.length;$('z1').textContent=S.length;$('z2').textContent=S.filter(function(s){return s.odendi}).length;$('z3').textContent=S.filter(function(s){return !s.odendi}).length;$('z4').textContent=tl(al);$('z5').textContent=tl(bk);$('z6').textContent=F.filter(function(f){return f.fiyat!=null}).length+' / '+F.length;$('b2').textContent=tl(al);$('b3').textContent=tl(bk);$('b4').textContent=tl(bay);
+ T.forEach(function(t){var f=Number(t.fiyat||0);if(t.odendi){al+=f;var m=String(t.odeme_tarihi||t.olusturma).slice(0,7);ay[m]=(ay[m]||0)+f;if(m===bu)bay+=f}else if(t.durum==='Kabul edildi')bk+=f;var k=t.sablon?String(t.sablon).toUpperCase():'Şablonsuz';pk[k]=(pk[k]||0)+1});
+ var n=function(d){return T.filter(function(t){return t.durum===d}).length};
+ $('z1').textContent=T.length;$('z2').textContent=n('Yeni');$('z3').textContent=n('Teklif verildi');$('z4').textContent=T.filter(function(t){return t.durum==='Kabul edildi'&&!t.odendi}).length;$('z5').textContent=T.filter(function(t){return t.odendi}).length;$('z6').textContent=tl(al);
+ $('b1').textContent=T.length;$('b2').textContent=tl(al);$('b3').textContent=tl(bk);$('b4').textContent=tl(bay);
  var mx=Math.max.apply(null,Object.keys(ay).map(function(k){return ay[k]}).concat([1]));
- $('ay').innerHTML=Object.keys(ay).sort().reverse().map(function(k){return '<div class="mr"><span>'+k+'</span><div class="bar"><i style="width:'+Math.round(ay[k]*100/mx)+'%"></i></div><b>'+tl(ay[k])+'</b></div>'}).join('')||'<p class="m">Ödenmiş sipariş yok.</p>';
- $('pk').innerHTML=Object.keys(pk).map(function(k){return '<div class="mr"><span>'+esc(k)+'</span><div></div><b>'+pk[k]+' adet</b></div>'}).join('')||'<p class="m">Veri yok.</p>';
- $('fl').innerHTML=F.map(function(f){return '<div class="fr"><b>'+esc(f.ad)+'</b><input data-k="'+f.anahtar+'" type="number" placeholder="Fiyat ₺" value="'+(f.fiyat==null?'':f.fiyat)+'"><button class="bt" data-s="'+f.anahtar+'" type="button">Kaydet</button></div>'}).join('')}
-document.addEventListener('click',function(e){var t=e.target.closest('.tk');
- if(t){var i=t.getAttribute('data-i'),s=S.filter(function(x){return String(x.id)===i})[0];c.from('siparisler').update({odendi:!s.odendi}).eq('id',i).then(yukle);return}
- var d=e.target.closest('[data-d]');if(d){c.from('siparisler').delete().eq('id',d.getAttribute('data-d')).then(yukle);return}
- var sv=e.target.closest('[data-s]');if(sv){var k=sv.getAttribute('data-s'),v=document.querySelector('input[data-k="'+k+'"]').value;c.from('fiyatlar').update({fiyat:v===''?null:Number(v)}).eq('anahtar',k).then(function(r){$('fm').textContent=r.error?'Kaydedilemedi.':'Kaydedildi. Siteye hemen yansır.'});return}
+ $('ay').innerHTML=Object.keys(ay).sort().reverse().map(function(k){return '<div class="mr"><span>'+k+'</span><div class="bar"><i style="width:'+Math.round(ay[k]*100/mx)+'%"></i></div><b>'+tl(ay[k])+'</b></div>'}).join('')||'<p class="m">Ödenmiş kayıt yok.</p>';
+ $('pk').innerHTML=Object.keys(pk).map(function(k){return '<div class="mr"><span>'+esc(k)+'</span><div></div><b>'+pk[k]+' teklif</b></div>'}).join('')||'<p class="m">Veri yok.</p>'}
+document.addEventListener('click',function(e){
+ var t=e.target.closest('.tk');
+ if(t){var i=t.getAttribute('data-i'),s=T.filter(function(x){return String(x.id)===i})[0];if(!s.odendi&&s.fiyat==null){alert('Önce fiyat yazıp teklifi gönderin.');return}c.from('teklifler').update({odendi:!s.odendi}).eq('id',i).then(yukle);return}
+ var g=e.target.closest('[data-g]');if(g){var id=g.getAttribute('data-g'),f=document.querySelector('input[data-f="'+id+'"]').value,y=document.querySelector('input[data-y="'+id+'"]').value.trim();if(f===''){alert('Fiyat yazın.');return}
+  var o=T.filter(function(x){return String(x.id)===id})[0],u={fiyat:Number(f),yanit:y||null};if(!o.odendi&&o.durum!=='Kabul edildi')u.durum='Teklif verildi';
+  c.from('teklifler').update(u).eq('id',id).then(function(r){if(r.error){alert('Kaydedilemedi.');return}yukle()});return}
+ var d=e.target.closest('[data-d]');if(d){if(!d.dataset.s){d.dataset.s=1;d.textContent='Emin misin? Tekrar bas';setTimeout(function(){d.dataset.s='';d.textContent='Sil'},3500);return}c.from('teklifler').delete().eq('id',d.getAttribute('data-d')).then(yukle);return}
  var b=e.target.closest('.tb button[data-t]');if(b){[].forEach.call(document.querySelectorAll('.tb button[data-t]'),function(x){x.classList.toggle('on',x===b)});[].forEach.call(document.querySelectorAll('[data-p]'),function(p){p.hidden=p.getAttribute('data-p')!==b.getAttribute('data-t')})}});
 $('ak').onclick=function(){var k={banka_adi:$('a1').value.trim(),hesap_sahibi:$('a2').value.trim(),iban:$('a3').value.trim(),whatsapp:$('a4').value.trim(),odeme_notu:$('a5').value.trim()};Promise.all(Object.keys(k).map(function(n){return c.from('ayarlar').upsert({anahtar:n,deger:k[n]})})).then(function(r){var e=r.some(function(x){return x.error});$('am').textContent=e?'Kaydedilemedi.':'Kaydedildi. Siteye hemen yansır.'})};
-$('n3').onchange=function(){var o=$('n3').selectedOptions[0];if(o)$('n4').value=o.getAttribute('data-f')||''};
-$('ek').onclick=function(){var a=$('n1').value.trim();if(!a){$('em2').textContent='Ad yazın.';return}
- c.from('siparisler').insert({ad:a,telefon:$('n2').value,paket:$('n3').value,tutar:Number($('n4').value||0),tarih:$('n5').value||new Date().toISOString().slice(0,10)}).then(function(r){$('em2').textContent=r.error?'Eklenemedi.':'Eklendi.';if(!r.error){$('n1').value=$('n2').value='';yukle()}})};
+$('ek').onclick=function(){var a=$('n1').value.trim();if(!a){$('em2').textContent='Müşteri adı yazın.';return}
+ c.from('teklifler').insert({ad:a,telefon:$('n2').value.trim()||null,sektor:$('n3').value.trim()||null,tur:'elle',durum:'Kabul edildi',fiyat:Number($('n4').value||0)}).then(function(r){$('em2').textContent=r.error?'Eklenemedi.':'Eklendi. Ödemesi gelince Ödendi kutusunu işaretleyin.';if(!r.error){$('n1').value=$('n2').value=$('n3').value=$('n4').value='';yukle()}})};
 $('pw').addEventListener('keydown',function(e){if(e.key==='Enter')$('gi').click()});
 giris();
 })();

@@ -1,0 +1,52 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><link rel="stylesheet" href="assets/musteri.css?v=2"><title>Teklif al · Web Yapıyoruz</title></head><body>
+<div class="mt"><a href="index.html">← Web Yapıyoruz</a><a href="sablonlar.html">Şablonlar</a><div class="sp"></div><small id="who"></small><a href="panelim.html" id="pl" hidden>Panelim</a></div>
+<div class="mw" style="max-width:640px">
+<h1 style="font-size:24px;margin-bottom:6px">Teklif al</h1>
+<p style="color:var(--mut);margin-bottom:16px">Fiyatı size özel yazıp bu sayfadaki panelinize göndeririz. Teklif ücretsizdir, zorunluluk yok.</p>
+
+<div class="mc" id="gs" hidden><h2>Önce giriş yapın</h2><p style="color:var(--mut);margin-bottom:14px">Teklifiniz sizin panelinizde görünür. Başka kimse göremez. Ad soyad, telefon ve e-posta ile üye olmanız yeterli.</p><a class="mb p" id="gu">Üye ol</a> <a class="mb" id="gg">Giriş yap</a></div>
+
+<div class="mc" id="fm" hidden><h2>Ne istiyorsunuz?</h2>
+<div class="mg">
+<div id="pg" class="sc" hidden style="cursor:default"><span><b id="pgt">Program</b><small>Bu program için teklif istiyorsunuz.</small></span></div>
+<div id="rd" class="mg">
+<label class="sc" id="o1"><input type="radio" name="tur" value="bu_site"><span><b>Bu site</b><small id="o1t">Seçtiğim şablonun aynısını istiyorum.</small></span></label>
+<label class="sc"><input type="radio" name="tur" value="benzer"><span><b>Buna benzer bir site</b><small>Şablona benzesin, bazı bölümleri benim işime göre değişsin.</small></span></label>
+<label class="sc"><input type="radio" name="tur" value="sektor"><span><b>Sektörüme özel bir sistem</b><small>Randevu, rezervasyon, yönetim paneli gibi.</small></span></label>
+</div>
+<input id="sb" placeholder="Şablon kodu (varsa)" maxlength="30">
+<input id="sk" placeholder="Sektör veya işletme türü (ör. sürücü kursu, kuaför)" maxlength="80">
+<input id="tl" type="tel" placeholder="Telefon (0533...)" autocomplete="tel">
+<textarea id="nt" placeholder="Eklemek istediğiniz bir şey var mı? (isteğe bağlı)" maxlength="800"></textarea>
+<button class="mb p" id="go" type="button">Teklif iste</button></div>
+<p class="mm" id="ms"></p></div>
+</div>
+<style>.sc{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--ln);border-radius:14px;padding:12px 14px;background:rgba(255,255,255,.05);cursor:pointer}.sc input{width:auto;margin-top:4px}.sc b{display:block}.sc small{color:var(--mut);display:block;font-size:13.5px}.sc:has(input:checked){border-color:#f6c24a;background:rgba(246,194,74,.14)}</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/dist/umd/supabase.min.js"></script><script src="assets/sb-config.js?v=38"></script><script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var sab=(new URLSearchParams(location.search).get('sablon')||'').replace(/[^a-z0-9\-]/gi,'').slice(0,30).toLowerCase();
+var PR={hastane:'Hastane ve klinik otomasyonu',servis:'Oto servis otomasyonu',radyo:'Radyo otomasyonu',muhasebe:'Gelir-gider, cari ve stok takip',randevu:'Randevu sistemi',intranet:'Kurum içi iletişim (intranet)',rezervasyon:'Otel ve restoran rezervasyon sistemi',dugun:'Düğün mekânı otomasyonu',eticaret:'E-ticaret sistemi',ozel:'Talebe göre özel program'};
+var pk=(new URLSearchParams(location.search).get('program')||'').replace(/[^a-z]/g,'');if(!PR[pk])pk='';
+var self='teklif.html'+(sab?'?sablon='+sab:pk?'?program='+pk:'');
+$('gu').href='giris.html?uye=1&git='+encodeURIComponent(self);$('gg').href='giris.html?git='+encodeURIComponent(self);
+if(!window.SB_URL||window.SB_URL.indexOf('BURAYA')===0||!window.supabase){$('gs').hidden=false;$('gs').querySelector('h2').textContent='Sistem henüz hazır değil';return}
+var c=window.supabase.createClient(window.SB_URL,window.SB_KEY),U=null;
+c.auth.getSession().then(function(r){var s=r.data.session;
+ if(!s){$('gs').hidden=false;return}
+ U=s.user;var m=U.user_metadata||{};$('who').textContent=(m.ad||'')+' '+U.email;$('pl').hidden=false;$('fm').hidden=false;
+ $('tl').value=m.telefon||'';
+ if(pk){$('pg').hidden=false;$('pgt').textContent=PR[pk];$('rd').hidden=true;$('sb').hidden=true;$('sk').placeholder='İşletmeniz veya kurumunuz (ör. özel hastane, 5 şubeli oto servis)'}
+ else if(sab){$('sb').value=sab.toUpperCase();document.querySelector('input[value=bu_site]').checked=true;$('o1t').textContent='Şablon kodu '+sab.toUpperCase()+' aynen kurulsun.'}
+ else{$('o1').hidden=true;document.querySelector('input[value=benzer]').checked=true}
+});
+$('go').onclick=function(){
+ var t=pk?{value:'program'}:document.querySelector('input[name=tur]:checked');if(!t){$('ms').textContent='Lütfen bir seçenek işaretleyin.';return}
+ var kod=$('sb').value.trim().replace(/[^a-z0-9\-]/gi,'').toLowerCase();
+ if(!pk&&t.value==='bu_site'&&!kod){$('ms').textContent='Şablon kodunu yazın ya da "benzer site" seçin.';return}
+ $('go').disabled=true;$('ms').textContent='';var m=U.user_metadata||{};
+ c.from('teklifler').insert({user_id:U.id,ad:m.ad||U.email,telefon:$('tl').value.trim()||null,eposta:U.email,sablon:pk?null:(kod||null),tur:t.value,sektor:pk?(PR[pk]+($('sk').value.trim()?' · '+$('sk').value.trim():'')):($('sk').value.trim()||null),not_:$('nt').value.trim()||null}).select('kod').single().then(function(r){
+  if(r.error){$('go').disabled=false;$('ms').textContent='Teklif gönderilemedi. Biraz sonra tekrar deneyin.';return}
+  location.href='panelim.html?yeni='+encodeURIComponent(r.data.kod)})};
+})();
+</script></body></html>
