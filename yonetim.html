@@ -46,9 +46,12 @@ a.lk{color:var(--au);text-decoration:none}
 <div class="w">
 <div class="card" id="lg" style="max-width:380px;margin:60px auto"><h2>Yönetici girişi</h2><div class="g"><input id="em" type="email" placeholder="E-posta" autocomplete="username"><div style="position:relative"><input id="pw" type="password" placeholder="Şifre" autocomplete="current-password" style="padding-right:84px"><button type="button" class="bt" id="gz" style="position:absolute;right:5px;top:50%;transform:translateY(-50%);padding:4px 12px;font-size:13px">Göster</button></div><button class="bt p" id="gi" type="button">Giriş yap</button></div><p class="m" id="lm"></p></div>
 <div id="ap" hidden>
-<div class="tb"><button class="on" data-t="o" type="button">Özet</button><button data-t="s" type="button">Teklifler</button><button data-t="b" type="button">Bütçe</button><button data-t="f" type="button">Ödeme bilgileri</button></div>
+<div class="tb"><button class="on" data-t="o" type="button">Özet</button><button data-t="s" type="button">Teklifler</button><button data-t="r" type="button">Satışlar</button><button data-t="b" type="button">Bütçe</button><button data-t="f" type="button">Ödeme bilgileri</button></div>
 <div data-p="o"><div class="st"><div><span>Toplam teklif</span><b id="z1">0</b></div><div><span>Fiyat bekleyen</span><b id="z2">0</b></div><div><span>Teklif verilen</span><b id="z3">0</b></div><div><span>Ödeme bekleyen</span><b id="z4">0</b></div><div><span>Ödenen</span><b id="z5">0</b></div><div><span>Alınan tutar</span><b id="z6">0 ₺</b></div></div></div>
 <div data-p="s" hidden><div class="card"><h2>Elle kayıt ekle (kendi sattığın iş)</h2><div class="g g2"><input id="n1" placeholder="Müşteri adı"><input id="n2" placeholder="Telefon"><input id="n3" placeholder="Ne satıldı (ör. Özler sürücü kursu sitesi)"><input id="n4" type="number" placeholder="Tutar ₺"></div><div style="margin-top:12px"><button class="bt p" id="ek" type="button">Kaydı ekle</button> <span class="m" id="em2"></span></div></div><div id="tq"></div></div>
+<div data-p="r" hidden><div class="st"><div><span>Seçili dönemde alınan</span><b id="r1">0 ₺</b></div><div><span>Satış adedi</span><b id="r2">0</b></div><div><span>Ödeme bekleyen</span><b id="r3">0 ₺</b></div><div><span>Dönem</span><select id="sm"><option value="">Tüm aylar</option></select></div></div>
+<h2>Ödemesi alınanlar</h2><div class="tw" style="margin-bottom:22px"><table><thead><tr><th>Ödeme tarihi</th><th>Müşteri</th><th>Telefon</th><th>Ne alındı</th><th>Kod</th><th>Tutar</th></tr></thead><tbody id="rt"></tbody></table></div>
+<h2>Ödeme bekleyenler (teklif kabul edildi)</h2><div class="tw"><table><thead><tr><th>Kabul tarihi</th><th>Müşteri</th><th>Telefon</th><th>Ne alındı</th><th>Kod</th><th>Tutar</th></tr></thead><tbody id="rb"></tbody></table></div></div>
 <div data-p="b" hidden><div class="st"><div><span>Toplam teklif</span><b id="b1">0</b></div><div><span>Alınan (ödendi)</span><b id="b2">0 ₺</b></div><div><span>Bekleyen (kabul edildi)</span><b id="b3">0 ₺</b></div><div><span>Bu ay alınan</span><b id="b4">0 ₺</b></div></div><div class="card"><h2>Aylara göre alınan</h2><div id="ay"></div></div><div class="card"><h2>Şablona göre teklif</h2><div id="pk"></div></div></div>
 <div data-p="f" hidden><div class="card"><h2>Ödeme bilgileri (müşteriye gösterilir)</h2><div class="g g2"><input id="a1" placeholder="Banka adı"><input id="a2" placeholder="Hesap sahibi"><input id="a3" placeholder="IBAN (TR..)"><input id="a4" placeholder="WhatsApp (905...)"></div><input id="a5" placeholder="Not (isteğe bağlı)" style="margin-top:10px"><div style="margin-top:12px"><button class="bt p" id="ak" type="button">Ödeme bilgilerini kaydet</button> <span class="m" id="am"></span></div></div></div>
 </div></div>
@@ -69,6 +72,21 @@ function yukle(){Promise.all([c.from('teklifler').select('*').order('id',{ascend
  if(a[0].error){$('lg').hidden=false;$('ap').hidden=true;$('lm').textContent='Teklif tablosu bulunamadı. Supabase-Teklif-Kurulum dosyasını çalıştırın.';return}
  if(a[1].error||!(a[1].data||[]).length){$('lg').hidden=false;$('ap').hidden=true;$('lm').textContent='Bu hesap yönetici olarak tanımlı değil.';return}
  T=a[0].data;var AA={};(a[2].data||[]).forEach(function(x){AA[x.anahtar]=x.deger});if(!$('a1').dataset.d){$('a1').value=AA.banka_adi||'';$('a2').value=AA.hesap_sahibi||'';$('a3').value=AA.iban||'';$('a4').value=AA.whatsapp||'';$('a5').value=AA.odeme_notu||'';$('a1').dataset.d=1}ciz()})}
+
+function ne(t){var a=[];if(t.sablon)a.push('Şablon '+String(t.sablon).toUpperCase());if(t.tur==='program'||t.tur==='elle'||t.tur==='sektor')a.push(t.sektor||TUR[t.tur]);else if(t.sektor)a.push(t.sektor);if(!a.length)a.push(TUR[t.tur]||'—');return a.join(' · ')}
+function mus(t){return '<b>'+esc(t.ad||t.eposta||'—')+'</b>'+(t.eposta&&t.eposta!==t.ad?'<br><small style="color:var(--mut)">'+esc(t.eposta)+'</small>':'')}
+function satis(){
+ var sel=$('sm'),cur=sel.value,P=T.filter(function(t){return t.odendi}),ms={};
+ P.forEach(function(t){ms[String(t.odeme_tarihi||t.olusturma).slice(0,7)]=1});
+ var keys=Object.keys(ms).sort().reverse(),h='<option value="">Tüm aylar</option>'+keys.map(function(k){return '<option value="'+k+'"'+(k===cur?' selected':'')+'>'+k+'</option>'}).join('');
+ if(sel.dataset.h!==h){sel.innerHTML=h;sel.dataset.h=h;sel.value=cur}
+ var L=P.filter(function(t){return !cur||String(t.odeme_tarihi||t.olusturma).slice(0,7)===cur}).sort(function(a,b){return String(b.odeme_tarihi||b.olusturma).localeCompare(String(a.odeme_tarihi||a.olusturma))}),top=0;
+ L.forEach(function(t){top+=Number(t.fiyat||0)});
+ $('rt').innerHTML=L.map(function(t){return '<tr><td>'+esc(zt(t.odeme_tarihi||t.olusturma).split(' ')[0])+'</td><td>'+mus(t)+'</td><td>'+esc(t.telefon||'')+'</td><td>'+esc(ne(t))+'</td><td>'+esc(t.kod)+'</td><td><b>'+tl(t.fiyat)+'</b></td></tr>'}).join('')+(L.length?'<tr><td colspan="5"><b>Toplam</b></td><td><b>'+tl(top)+'</b></td></tr>':'')||'<tr><td colspan="6">Bu dönemde ödemesi alınan satış yok.</td></tr>';
+ var B=T.filter(function(t){return t.durum==='Kabul edildi'&&!t.odendi}),bt=0;B.forEach(function(t){bt+=Number(t.fiyat||0)});
+ $('rb').innerHTML=B.map(function(t){return '<tr><td>'+esc(zt(t.olusturma).split(' ')[0])+'</td><td>'+mus(t)+'</td><td>'+esc(t.telefon||'')+'</td><td>'+esc(ne(t))+'</td><td>'+esc(t.kod)+'</td><td>'+tl(t.fiyat)+'</td></tr>'}).join('')||'<tr><td colspan="6">Bekleyen ödeme yok.</td></tr>';
+ $('r1').textContent=tl(top);$('r2').textContent=L.length;$('r3').textContent=tl(bt)}
+$('sm').onchange=satis;
 function yol(k){k=String(k||'').toLowerCase();return k==='kurs'?'demo/kurs/index.html':'demo/'+k+'.html'}
 function ciz(){
  var bos=!T.length;
@@ -76,7 +94,7 @@ function ciz(){
   var dc=t.odendi?'k':(t.durum==='Teklif verildi'||t.durum==='Kabul edildi')?'y':'';
   var bi='';if(t.bilgi){var L=[['Firma','firma'],['Telefon','telefon'],['E-posta','eposta'],['Adres','adres'],['Çalışma saatleri','saat'],['Sosyal medya','sosyal'],['Hizmetler','hizmet']];bi='<div class="bi"><b>Müşterinin site bilgileri</b>'+L.filter(function(x){return t.bilgi[x[1]]}).map(function(x){return '<div><span>'+x[0]+':</span> '+esc(t.bilgi[x[1]])+'</div>'}).join('')+'</div>'}
   return '<div class="tq"><div class="th"><b>'+esc(t.kod)+'</b><small>'+esc(zt(t.olusturma))+'</small><span class="ch '+dc+'">'+esc(t.durum)+'</span><span class="sp"></span><button class="bt" data-d="'+t.id+'" type="button">Sil</button></div>'
-  +'<div><b>'+esc(t.ad)+'</b> <span class="ky">'+esc(t.eposta||'')+(t.telefon?' · '+esc(t.telefon):'')+'</span></div>'
+  +'<div><b>'+esc(t.ad&&t.ad!==t.eposta?t.ad:'(ad yazılmamış)')+'</b> <span class="ky">'+esc(t.eposta||'')+(t.telefon?' · '+esc(t.telefon):'')+'</span></div>'
   +'<div class="ky"><b>'+esc(TUR[t.tur]||'—')+'</b>'+(t.sablon?' · Şablon: <b>'+esc(String(t.sablon).toUpperCase())+'</b> · <a class="lk" target="_blank" rel="noopener" href="'+yol(t.sablon)+'">Şablonu aç</a>':'')+(t.sektor?' · '+esc(t.sektor):'')+'</div>'
   +(t.sablon?'<img class="sth" alt="" src="assets/th/'+esc(String(t.sablon).toLowerCase())+'.jpg" onerror="this.remove()">':'')+(t.not_?'<div class="ky">Not: '+esc(t.not_)+'</div>':'')+bi
   +'<div class="bl"><input data-f="'+t.id+'" type="number" placeholder="Fiyat ₺" value="'+(t.fiyat==null?'':t.fiyat)+'"><input data-y="'+t.id+'" placeholder="Müşteriye not (isteğe bağlı)" value="'+esc(t.yanit||'')+'"><button class="bt p" data-g="'+t.id+'" type="button">Teklifi gönder</button><div><button class="tk'+(t.odendi?' on':'')+'" data-i="'+t.id+'" type="button" title="Ödendi">✓</button> <span class="ky">Ödendi</span></div></div></div>'}).join('')||'<p class="m">Henüz teklif yok.</p>';
@@ -87,6 +105,7 @@ function ciz(){
  $('b1').textContent=T.length;$('b2').textContent=tl(al);$('b3').textContent=tl(bk);$('b4').textContent=tl(bay);
  var mx=Math.max.apply(null,Object.keys(ay).map(function(k){return ay[k]}).concat([1]));
  $('ay').innerHTML=Object.keys(ay).sort().reverse().map(function(k){return '<div class="mr"><span>'+k+'</span><div class="bar"><i style="width:'+Math.round(ay[k]*100/mx)+'%"></i></div><b>'+tl(ay[k])+'</b></div>'}).join('')||'<p class="m">Ödenmiş kayıt yok.</p>';
+ satis();
  $('pk').innerHTML=Object.keys(pk).map(function(k){return '<div class="mr"><span>'+esc(k)+'</span><div></div><b>'+pk[k]+' teklif</b></div>'}).join('')||'<p class="m">Veri yok.</p>'}
 document.addEventListener('click',function(e){
  var t=e.target.closest('.tk');

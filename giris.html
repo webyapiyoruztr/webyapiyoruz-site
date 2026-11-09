@@ -18,6 +18,7 @@ $('go').onclick=function(){var e=$('em').value.trim(),p=$('pw').value;if(!e||p.l
  $('go').disabled=true;
  if(mod==='g'){c.auth.signInWithPassword({email:e,password:p}).then(function(r){$('go').disabled=false;if(r.error){$('ms').textContent='Giriş olmadı: e-posta veya şifre hatalı.';return}bit()})}
  else{if(!$('ad').value.trim()){$('ms').textContent='Ad soyadınızı yazın.';$('go').disabled=false;return}
+  if($('tel').value.replace(/\D/g,'').length<10){$('ms').textContent='Telefon numaranızı yazın (0533...).';$('go').disabled=false;return}
   c.auth.signUp({email:e,password:p,options:{data:{ad:$('ad').value.trim(),telefon:$('tel').value.trim()}}}).then(function(r){$('go').disabled=false;if(r.error){$('ms').textContent='Üyelik olmadı: '+(r.error.message.indexOf('registered')>-1?'bu e-posta zaten kayıtlı.':'bilgileri kontrol edin.');return}
    if(r.data.session)bit();else $('ms').textContent='E-postanıza doğrulama bağlantısı gönderildi. Doğrulayıp giriş yapın.'})}};
 $('pw').addEventListener('keydown',function(e){if(e.key==='Enter')$('go').click()});

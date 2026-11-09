@@ -145,3 +145,8 @@ header nav a:nth-child(n+4){display:none}
 
 .rt .pill.am.sm{white-space:nowrap}.rt .lang{flex-shrink:0}.rt .gir{padding:9px 18px}
 @media(min-width:761px) and (max-width:1320px){header nav{gap:10px!important;margin-right:8px!important}header nav a{font-size:13px!important}.rt .pill.am.sm{padding:10px 16px;font-size:14px}}
+
+/* üst menü sade: diğer bağlantılar yalnızca açılır menüde */
+header nav a.x{display:none!important}
+header nav{gap:26px!important;margin-right:22px!important}
+@media(min-width:761px) and (max-width:1320px){header nav{gap:18px!important;margin-right:12px!important}header nav a{font-size:14px!important}}

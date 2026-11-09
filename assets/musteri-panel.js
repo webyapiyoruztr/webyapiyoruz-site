@@ -13,7 +13,7 @@ $('cik').onclick=function(){c.auth.signOut().then(function(){location.href='inde
 function yukle(){Promise.all([c.from('teklifler').select('*').eq('user_id',U.id).order('olusturma',{ascending:false}),c.from('ayarlar').select('*')]).then(function(a){
  T=a[0].data||[];AY={};(a[1].data||[]).forEach(function(x){AY[x.anahtar]=x.deger});
  $('s1').textContent=T.length;
- $('s2').textContent=T.filter(function(t){return t.durum==='Teklif verildi'}).length;
+ $('s2').textContent=T.filter(function(t){return t.durum==='Teklif verildi'||t.durum==='Kabul edildi'||t.durum==='Ödendi'}).length;
  $('s3').textContent=T.filter(function(t){return t.durum==='Kabul edildi'&&!t.odendi}).length;
  $('s4').textContent=T.filter(function(t){return t.odendi}).length;
  var box=$('tq');box.textContent='';
