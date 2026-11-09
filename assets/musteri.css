@@ -1,0 +1,20 @@
+:root{--tx:#fff;--mut:rgba(255,255,255,.78);--ln:rgba(210,232,255,.38);--ac:#f6c24a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:15px/1.5 'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var(--tx);min-height:100vh;background:linear-gradient(160deg,#123c82,#0a2a63 55%,#07183d)}
+.mt{display:flex;align-items:center;gap:14px;padding:14px max(20px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--ln);flex-wrap:wrap}
+.mt a{color:#fff;text-decoration:none;font-weight:600}.mt .sp{flex:1}.mt small{color:var(--mut)}
+.mw{max-width:1040px;margin:0 auto;padding:22px max(20px,env(safe-area-inset-left,0px)) 50px}
+.mc{border:1px solid var(--ln);border-radius:18px;background:rgba(6,18,48,.55);padding:18px;margin-bottom:16px}
+.mc h2{font-size:17px;margin-bottom:12px}
+.mst{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+.mst div{border:1px solid var(--ln);border-radius:14px;padding:12px 14px;background:rgba(255,255,255,.05)}.mst span{display:block;font-size:13px;color:var(--mut)}.mst b{font-size:24px;color:var(--ac)}
+.mi,.mw input,.mw textarea{width:100%;padding:11px 13px;border-radius:12px;border:1px solid rgba(225,240,255,.5);background:rgba(255,255,255,.08);color:#fff;font:inherit}
+.mw textarea{min-height:90px;resize:vertical}.mw input::placeholder,.mw textarea::placeholder{color:rgba(255,255,255,.65)}
+.mb{padding:10px 18px;border-radius:999px;border:1px solid rgba(225,240,255,.6);background:rgba(255,255,255,.07);color:#fff;font:600 14px inherit;font-family:inherit;cursor:pointer;text-decoration:none;display:inline-block}
+.mb.p{background:var(--ac);border-color:var(--ac);color:#1b1500}
+.mg{display:grid;gap:10px}.mm{font-size:14px;color:var(--mut);min-height:20px;margin-top:8px}[hidden]{display:none!important}
+.mtw{overflow-x:auto;border:1px solid var(--ln);border-radius:14px}
+.mw table{width:100%;border-collapse:collapse;min-width:680px}.mw th,.mw td{padding:11px 14px;text-align:left;border-top:1px solid rgba(210,232,255,.2)}.mw th{border-top:0;background:rgba(255,255,255,.07);font-size:13px;color:var(--mut)}
+.mtg{display:inline-block;padding:3px 11px;border-radius:99px;font-size:12.5px;font-weight:700}.mtg.ok{background:rgba(94,234,160,.25);color:#9af5c6}.mtg.wt{background:rgba(246,194,74,.25);color:#ffd987}
+.mtb{display:flex;gap:8px;margin-bottom:16px}.mtb button{flex:1}
+.mbt{border:1px solid var(--ln);border-radius:12px;margin-top:10px}.mbt div{display:flex;justify-content:space-between;gap:10px;padding:9px 12px;border-top:1px solid rgba(210,232,255,.2);word-break:break-all}.mbt div:first-child{border-top:0}

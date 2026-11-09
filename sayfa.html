@@ -1,0 +1,11 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sayfa · Web Yapıyoruz</title><link rel="stylesheet" href="assets/ornek.css?v=1"><style>#wrap{grid-template-columns:minmax(0,640px);justify-content:center;grid-template-areas:"hero"}</style></head><body>
+<main id="wrap"><section class="hero" id="h"><small id="k">&nbsp;</small><h1 id="t">Yükleniyor</h1><p id="m"></p></section></main>
+<p class="cr">Bu sayfa <a href="index.html">Web Yapıyoruz</a> ile hazırlandı.</p><div id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/dist/umd/supabase.min.js"></script><script src="assets/sb-config.js?v=38"></script><script>
+(function(){var $=function(i){return document.getElementById(i)};
+function yok(){$('t').textContent='Sayfa bulunamadı';$('m').textContent='Adres yanlış olabilir ya da sayfa henüz yayında değil.'}
+var id=new URLSearchParams(location.search).get('id');
+if(!id||!window.SB_URL||window.SB_URL.indexOf('BURAYA')===0){yok();return}
+window.supabase.createClient(window.SB_URL,window.SB_KEY).from('sayfalar').select('baslik,alt,metin,urun').eq('id',id).eq('yayinda',true).single().then(function(r){if(r.error||!r.data){yok();return}
+ $('t').textContent=r.data.baslik||'';$('k').textContent=r.data.alt||'';$('m').textContent=r.data.metin||'';document.title=(r.data.baslik||'Sayfa')+' · Web Yapıyoruz'})})();
+</script><script src="assets/ornek.js?v=1"></script></body></html>

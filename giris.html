@@ -1,0 +1,24 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><link rel="stylesheet" href="assets/musteri.css?v=1"><title>Giriş · Web Yapıyoruz</title></head><body>
+<div class="mt"><a href="index.html">← Web Yapıyoruz</a><div class="sp"></div></div>
+<div class="mw" style="max-width:420px"><div class="mc"><div class="mtb"><button class="mb p" id="t1" type="button">Giriş yap</button><button class="mb" id="t2" type="button">Üye ol</button></div>
+<div class="mg"><input id="ad" placeholder="Ad soyad" hidden autocomplete="name"><input id="tel" placeholder="Telefon (0533...)" hidden type="tel" autocomplete="tel"><input id="em" type="email" placeholder="E-posta" autocomplete="username"><div style="position:relative"><input id="pw" type="password" placeholder="Şifre (en az 6 karakter)" autocomplete="current-password" style="padding-right:88px"><button class="mb" id="gz" type="button" style="position:absolute;right:5px;top:50%;transform:translateY(-50%);padding:4px 12px;font-size:13px">Göster</button></div><button class="mb p" id="go" type="button">Giriş yap</button></div><p class="mm" id="ms"></p></div></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/dist/umd/supabase.min.js"></script><script src="assets/sb-config.js?v=38"></script><script>
+(function(){
+var $=function(i){return document.getElementById(i)},mod='g';
+$('gz').onclick=function(){var p=$('pw'),a=p.type==='password';p.type=a?'text':'password';$('gz').textContent=a?'Gizle':'Göster'};
+function sec(m){mod=m;$('t1').classList.toggle('p',m==='g');$('t2').classList.toggle('p',m==='u');$('ad').hidden=$('tel').hidden=m==='g';$('go').textContent=m==='g'?'Giriş yap':'Üye ol';$('ms').textContent=''}
+$('t1').onclick=function(){sec('g')};$('t2').onclick=function(){sec('u')};
+if(!window.SB_URL||window.SB_URL.indexOf('BURAYA')===0){$('ms').textContent='Sistem henüz hazır değil.';return}
+var c=window.supabase.createClient(window.SB_URL,window.SB_KEY);
+var git=new URLSearchParams(location.search).get('git')||'panelim.html';if(!/^[a-z0-9._\-]+(\?[a-z0-9=&._\-]+)?(#[a-z0-9\-]+)?$/i.test(git))git='panelim.html';
+function bit(){location.href=git}
+c.auth.getSession().then(function(r){if(r.data.session)bit()});
+$('go').onclick=function(){var e=$('em').value.trim(),p=$('pw').value;if(!e||p.length<6){$('ms').textContent='E-posta ve en az 6 karakterli şifre yazın.';return}
+ $('go').disabled=true;
+ if(mod==='g'){c.auth.signInWithPassword({email:e,password:p}).then(function(r){$('go').disabled=false;if(r.error){$('ms').textContent='Giriş olmadı: e-posta veya şifre hatalı.';return}bit()})}
+ else{if(!$('ad').value.trim()){$('ms').textContent='Adınızı yazın.';$('go').disabled=false;return}
+  c.auth.signUp({email:e,password:p,options:{data:{ad:$('ad').value.trim(),telefon:$('tel').value.trim()}}}).then(function(r){$('go').disabled=false;if(r.error){$('ms').textContent='Üyelik olmadı: '+(r.error.message.indexOf('registered')>-1?'bu e-posta zaten kayıtlı.':'bilgileri kontrol edin.');return}
+   if(r.data.session)bit();else $('ms').textContent='E-postanıza doğrulama bağlantısı gönderildi. Doğrulayıp giriş yapın.'})}};
+$('pw').addEventListener('keydown',function(e){if(e.key==='Enter')$('go').click()});
+})();
+</script></body></html>
