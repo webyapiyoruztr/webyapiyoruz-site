@@ -1,4 +1,4 @@
-<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><link rel="stylesheet" href="assets/musteri.css?v=2"><title>Teklif al · Web Yapıyoruz</title></head><body>
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><link rel="stylesheet" href="assets/musteri.css?v=3"><title>Teklif al · Web Yapıyoruz</title></head><body>
 <div class="mt"><a href="index.html">← Web Yapıyoruz</a><a href="sablonlar.html">Şablonlar</a><div class="sp"></div><small id="who"></small><a href="panelim.html" id="pl" hidden>Panelim</a></div>
 <div class="mw" style="max-width:640px">
 <h1 style="font-size:24px;margin-bottom:6px">Teklif al</h1>
@@ -8,6 +8,7 @@
 
 <div class="mc" id="fm" hidden><h2>Ne istiyorsunuz?</h2>
 <div class="mg">
+<div id="pv" class="sc" hidden style="cursor:default;align-items:center"><img id="pvi" alt="" style="width:150px;border-radius:10px;border:1px solid var(--ln)"><span><b id="pvt">Şablon</b><small>Seçtiğiniz şablon. Değiştirmek için Şablonlar sayfasına dönün.</small><a class="mb" id="pva" target="_blank" rel="noopener" style="margin-top:8px;padding:6px 14px;font-size:13px">Şablonu aç</a></span></div>
 <div id="pg" class="sc" hidden style="cursor:default"><span><b id="pgt">Program</b><small>Bu program için teklif istiyorsunuz.</small></span></div>
 <div id="rd" class="mg">
 <label class="sc" id="o1"><input type="radio" name="tur" value="bu_site"><span><b>Bu site</b><small id="o1t">Seçtiğim şablonun aynısını istiyorum.</small></span></label>
@@ -26,7 +27,7 @@
 (function(){
 var $=function(i){return document.getElementById(i)};
 var sab=(new URLSearchParams(location.search).get('sablon')||'').replace(/[^a-z0-9\-]/gi,'').slice(0,30).toLowerCase();
-var PR={hastane:'Hastane ve klinik otomasyonu',servis:'Oto servis otomasyonu',radyo:'Radyo otomasyonu',muhasebe:'Gelir-gider, cari ve stok takip',randevu:'Randevu sistemi',intranet:'Kurum içi iletişim (intranet)',rezervasyon:'Otel ve restoran rezervasyon sistemi',dugun:'Düğün mekânı otomasyonu',eticaret:'E-ticaret sistemi',ozel:'Talebe göre özel program'};
+var PR={hastane:'Hastane ve klinik otomasyonu',servis:'Oto servis otomasyonu',radyo:'Radyo otomasyonu',muhasebe:'Gelir-gider, cari ve stok takip',randevu:'Randevu sistemi',intranet:'Kurum içi iletişim (intranet)',otel:'Otel rezervasyon sistemi',restoran:'Restoran rezervasyon sistemi',dugun:'Düğün mekânı otomasyonu',eticaret:'E-ticaret sistemi',ozel:'Talebe göre özel program'};
 var pk=(new URLSearchParams(location.search).get('program')||'').replace(/[^a-z]/g,'');if(!PR[pk])pk='';
 var self='teklif.html'+(sab?'?sablon='+sab:pk?'?program='+pk:'');
 $('gu').href='giris.html?uye=1&git='+encodeURIComponent(self);$('gg').href='giris.html?git='+encodeURIComponent(self);
@@ -37,7 +38,7 @@ c.auth.getSession().then(function(r){var s=r.data.session;
  U=s.user;var m=U.user_metadata||{};$('who').textContent=(m.ad||'')+' '+U.email;$('pl').hidden=false;$('fm').hidden=false;
  $('tl').value=m.telefon||'';
  if(pk){$('pg').hidden=false;$('pgt').textContent=PR[pk];$('rd').hidden=true;$('sb').hidden=true;$('sk').placeholder='İşletmeniz veya kurumunuz (ör. özel hastane, 5 şubeli oto servis)'}
- else if(sab){$('sb').value=sab.toUpperCase();document.querySelector('input[value=bu_site]').checked=true;$('o1t').textContent='Şablon kodu '+sab.toUpperCase()+' aynen kurulsun.'}
+ else if(sab){$('sb').value=sab.toUpperCase();document.querySelector('input[value=bu_site]').checked=true;$('o1t').textContent='Şablon kodu '+sab.toUpperCase()+' aynen kurulsun.';$('sb').hidden=true;$('pv').hidden=false;$('pvi').src='assets/th/'+sab+'.jpg';$('pvt').textContent='Şablon kodu: '+sab.toUpperCase();$('pva').href=sab==='kurs'?'demo/kurs/index.html':'demo/'+sab+'.html'}
  else{$('o1').hidden=true;document.querySelector('input[value=benzer]').checked=true}
 });
 $('go').onclick=function(){

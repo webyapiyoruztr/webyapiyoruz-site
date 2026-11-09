@@ -23,6 +23,7 @@ function kart(t){var k=el('div',null,'tq'),h=el('div',null,'th');h.appendChild(e
  var d=t.durum==='Yeni'?'Teklif hazırlanıyor':t.durum==='Teklif verildi'?'Teklifiniz hazır':t.durum==='Kabul edildi'?'Ödeme bekleniyor':t.durum==='Ödendi'?'Aktif':'Vazgeçildi';
  h.appendChild(el('span',d,'mtg '+(t.odendi?'ok':t.durum==='Vazgeçildi'?'no':'wt')));k.appendChild(h);
  k.appendChild(el('div',(TUR[t.tur]||'Teklif')+(t.sablon?'  ·  Şablon: '+t.sablon.toUpperCase():'')+(t.sektor?'  ·  '+t.sektor:''),'ky'));
+ if(t.sablon){var im=el('img',null,'sth');im.src='assets/th/'+t.sablon.toLowerCase()+'.jpg';im.alt='';im.onerror=function(){im.remove()};k.appendChild(im)}
  if(t.durum==='Teklif verildi'){k.appendChild(el('div',tl(t.fiyat),'fy'));if(t.yanit)k.appendChild(el('div',t.yanit,'ky'));
   var b=el('div',null,'bt'),ok=el('button','Teklifi kabul et','mb p'),no=el('button','Vazgeç','mb');ok.type=no.type='button';
   ok.onclick=function(){durum(t,'Kabul edildi')};no.onclick=function(){durum(t,'Vazgeçildi')};b.appendChild(ok);b.appendChild(no);k.appendChild(b)}

@@ -40,6 +40,7 @@ th{border-top:0;color:var(--mut);font-weight:500;font-size:13.5px}
 @media(max-width:700px){.tq .bl{grid-template-columns:1fr 1fr}.tq .bl input:nth-child(2){grid-column:1/-1}}
 .bi{border:1px dashed var(--ln);border-radius:10px;padding:10px 12px;font-size:14px;display:grid;gap:3px}.bi span{color:var(--mut)}
 a.lk{color:var(--au);text-decoration:none}
+.sth{width:100%;max-width:300px;border-radius:10px;border:1px solid var(--ln)}
 </style></head><body>
 <div class="top"><div class="br">webyapiyoruz.tr<span>/yönetim</span></div><div class="sp"></div><small id="who"></small><button class="bt" id="cik" type="button" hidden>Çıkış</button></div>
 <div class="w">
@@ -77,7 +78,7 @@ function ciz(){
   return '<div class="tq"><div class="th"><b>'+esc(t.kod)+'</b><small>'+esc(zt(t.olusturma))+'</small><span class="ch '+dc+'">'+esc(t.durum)+'</span><span class="sp"></span><button class="bt" data-d="'+t.id+'" type="button">Sil</button></div>'
   +'<div><b>'+esc(t.ad)+'</b> <span class="ky">'+esc(t.eposta||'')+(t.telefon?' · '+esc(t.telefon):'')+'</span></div>'
   +'<div class="ky"><b>'+esc(TUR[t.tur]||'—')+'</b>'+(t.sablon?' · Şablon: <b>'+esc(String(t.sablon).toUpperCase())+'</b> · <a class="lk" target="_blank" rel="noopener" href="'+yol(t.sablon)+'">Şablonu aç</a>':'')+(t.sektor?' · '+esc(t.sektor):'')+'</div>'
-  +(t.not_?'<div class="ky">Not: '+esc(t.not_)+'</div>':'')+bi
+  +(t.sablon?'<img class="sth" alt="" src="assets/th/'+esc(String(t.sablon).toLowerCase())+'.jpg" onerror="this.remove()">':'')+(t.not_?'<div class="ky">Not: '+esc(t.not_)+'</div>':'')+bi
   +'<div class="bl"><input data-f="'+t.id+'" type="number" placeholder="Fiyat ₺" value="'+(t.fiyat==null?'':t.fiyat)+'"><input data-y="'+t.id+'" placeholder="Müşteriye not (isteğe bağlı)" value="'+esc(t.yanit||'')+'"><button class="bt p" data-g="'+t.id+'" type="button">Teklifi gönder</button><div><button class="tk'+(t.odendi?' on':'')+'" data-i="'+t.id+'" type="button" title="Ödendi">✓</button> <span class="ky">Ödendi</span></div></div></div>'}).join('')||'<p class="m">Henüz teklif yok.</p>';
  var al=0,bk=0,ay={},pk={},bu=new Date().toISOString().slice(0,7),bay=0;
  T.forEach(function(t){var f=Number(t.fiyat||0);if(t.odendi){al+=f;var m=String(t.odeme_tarihi||t.olusturma).slice(0,7);ay[m]=(ay[m]||0)+f;if(m===bu)bay+=f}else if(t.durum==='Kabul edildi')bk+=f;var k=t.sablon?String(t.sablon).toUpperCase():'Şablonsuz';pk[k]=(pk[k]||0)+1});

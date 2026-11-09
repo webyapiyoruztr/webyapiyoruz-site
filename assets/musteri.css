@@ -25,3 +25,5 @@ body{font:15px/1.5 'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:v
 .tq .fy{font-size:26px;font-weight:700;color:var(--ac)}
 .tq .bt{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .mtg.no{background:rgba(255,255,255,.14);color:#ddd}
+
+.sth{width:100%;max-width:300px;border-radius:12px;border:1px solid var(--ln)}

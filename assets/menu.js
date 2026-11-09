@@ -5,6 +5,11 @@ var nav=head.querySelector('nav');if(!nav)return;
 var host=head.querySelector('.rt')||head;
 var btn=document.createElement('button');btn.className='hb';btn.type='button';btn.setAttribute('aria-label','Menü');btn.setAttribute('aria-expanded','false');
 btn.innerHTML='<i></i><i></i><i></i>';host.appendChild(btn);
+
+/* Görünür giriş düğmesi: oturum açıksa "Panelim" olur */
+(function(){var lg=document.createElement('a');lg.className='pill sm gir';lg.href='giris.html';lg.textContent='Giriş yap';
+try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(/^sb-.*-auth-token$/.test(k)&&localStorage.getItem(k)){lg.textContent='Panelim';lg.href='panelim.html';break}}}catch(e){}
+var cta=host.querySelector('.pill');host.insertBefore(lg,cta||btn)})();
 var m=document.createElement('div');m.id='dmenu';m.setAttribute('aria-hidden','true');
 function ic(p){return '<svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>'}
 var I={'sablonlar.html':'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',

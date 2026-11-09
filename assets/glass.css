@@ -138,3 +138,10 @@ header nav a:nth-child(n+4){display:none}
 .wm .tb button:hover{background:#FFC21A!important}
 
 @media(min-width:1101px) and (max-width:1560px){header nav{gap:12px!important;margin-right:14px!important}header nav a{font-size:13.5px!important}}
+
+/* giriş düğmesi */
+.rt .gir{margin-right:8px;white-space:nowrap}
+@media(max-width:760px){.rt .gir{padding:8px 14px;font-size:13px;margin-right:6px}.rt .lang{display:none}}
+
+.rt .pill.am.sm{white-space:nowrap}.rt .lang{flex-shrink:0}.rt .gir{padding:9px 18px}
+@media(min-width:761px) and (max-width:1320px){header nav{gap:10px!important;margin-right:8px!important}header nav a{font-size:13px!important}.rt .pill.am.sm{padding:10px 16px;font-size:14px}}
