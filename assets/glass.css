@@ -150,3 +150,4 @@ header nav a:nth-child(n+4){display:none}
 header nav a.x{display:none!important}
 header nav{gap:26px!important;margin-right:22px!important}
 @media(min-width:761px) and (max-width:1320px){header nav{gap:18px!important;margin-right:12px!important}header nav a{font-size:14px!important}}
+@media(min-width:761px) and (max-width:1040px){header nav a:nth-child(3){display:none!important}}

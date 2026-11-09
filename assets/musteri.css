@@ -27,3 +27,4 @@ body{font:15px/1.5 'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:v
 .mtg.no{background:rgba(255,255,255,.14);color:#ddd}
 
 .sth{width:100%;max-width:300px;border-radius:12px;border:1px solid var(--ln)}
+.mw select{width:100%;padding:11px 13px;border-radius:12px;border:1px solid rgba(225,240,255,.5);background:rgba(255,255,255,.08);color:#fff;font:inherit;appearance:auto}.mw select option{color:#111;background:#fff}
