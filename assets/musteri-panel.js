@@ -10,8 +10,9 @@ c.auth.getSession().then(function(r){if(!r.data.session){location.href='giris.ht
  var y=new URLSearchParams(location.search).get('yeni');if(y){$('yeni').hidden=false;$('yk').textContent=y;if(new URLSearchParams(location.search).get('gorusme'))$('yg').hidden=false}
  yukle()});
 $('cik').onclick=function(){c.auth.signOut().then(function(){location.href='index.html'})};
-function yukle(){Promise.all([c.from('teklifler').select('*').eq('user_id',U.id).order('olusturma',{ascending:false}),c.from('ayarlar').select('*')]).then(function(a){
- T=a[0].data||[];AY={};(a[1].data||[]).forEach(function(x){AY[x.anahtar]=x.deger});
+var MS={},CHAT=false;function zf(x){var d=new Date(x);return isNaN(d)?'':d.toLocaleString('tr-TR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})}
+function yukle(){Promise.all([c.from('teklifler').select('*').eq('user_id',U.id).order('olusturma',{ascending:false}),c.from('ayarlar').select('*'),c.from('gorusme_mesaj').select('*').order('olusturma',{ascending:true})]).then(function(a){
+ CHAT=!a[2].error;MS={};(a[2].data||[]).forEach(function(m){(MS[m.teklif_id]=MS[m.teklif_id]||[]).push(m)});T=a[0].data||[];AY={};(a[1].data||[]).forEach(function(x){AY[x.anahtar]=x.deger});
  $('s1').textContent=T.length;
  $('s2').textContent=T.filter(function(t){return t.durum==='Teklif verildi'||t.durum==='Kabul edildi'||t.durum==='Ödendi'}).length;
  $('s3').textContent=T.filter(function(t){return t.durum==='Kabul edildi'&&!t.odendi}).length;
@@ -34,16 +35,23 @@ function kart(t){var k=el('div',null,'tq'),h=el('div',null,'th');h.appendChild(e
  if(t.odendi){k.appendChild(el('div',tl(t.fiyat)+' ödendi','ky'));var b3=el('div',null,'bt'),f=el('button',t.bilgi?'Site bilgilerimi düzenle':'Site bilgilerimi yaz','mb p');f.type='button';f.onclick=function(){bilgi(t)};b3.appendChild(f);k.appendChild(b3);k.appendChild(el('div','Sitenizi hazırlıyoruz. Bilgilerinizi yazın, logo ve fotoğrafları WhatsApp’tan gönderin.','ky'))}
  if(!t.odendi&&t.durum!=='Vazgeçildi'){var g=t.gorusme,bx=el('div',null,'bt');
   if(!g){if(t.durum!=='Teklif verildi'){var gb=el('button','Ödemeden önce yüz yüze görüşmek istiyorum','mb');gb.type='button';gb.onclick=function(){gorus(t,t.durum==='Kabul edildi'?KN[1]:KN[0])};bx.appendChild(gb);k.appendChild(bx)}}
-  else{var gd=t.gorusme_durum||'Talep edildi',cb=el('div',null,'cx');
+  else{var gd=t.gorusme_durum||'Talep edildi',cb=el('div',null,'cx'),ml=MS[t.id]||[],last=ml.length?ml[ml.length-1]:null;
    var hd=el('div',null,'cxh');hd.appendChild(el('b','Görüşme talebin'));hd.appendChild(el('span',gd,'cxs'));cb.appendChild(hd);
-   if(t.gorusme_yanit)cb.appendChild(el('div','Web Yapıyoruz sana not yazdı. Aşağıda.','cxn'));
+   if(last?last.gonderen==='yonetim':!!t.gorusme_yanit)cb.appendChild(el('div','Web Yapıyoruz sana yazdı. Aşağıda.','cxn'));
    var ms=el('div',null,'cxm'),mine=el('div',null,'cb me');
    mine.appendChild(el('div',[g.sekil,g.konu,g.sehir,g.zaman?'Uygun zaman: '+g.zaman:''].filter(Boolean).join(' · ')));
-   if(g.tarih){var d=new Date(g.tarih);if(!isNaN(d))mine.appendChild(el('small',d.toLocaleString('tr-TR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}),'cbt'))}
+   if(g.tarih)mine.appendChild(el('small',zf(g.tarih),'cbt'));
    ms.appendChild(mine);
-   if(t.gorusme_yanit){var us=el('div',null,'cb us');us.appendChild(el('small','Web Yapıyoruz','cbw'));us.appendChild(el('div',t.gorusme_yanit));ms.appendChild(us)}
-   else ms.appendChild(el('div','Talebin bize ulaştı. Sana buradan ve telefonla dönüş yapacağız.','cb us dim'));
-   cb.appendChild(ms);k.appendChild(cb);
+   if(t.gorusme_yanit){var us0=el('div',null,'cb us');us0.appendChild(el('small','Web Yapıyoruz','cbw'));us0.appendChild(el('div',t.gorusme_yanit));ms.appendChild(us0)}
+   ml.forEach(function(m){var me=m.gonderen==='musteri',bb=el('div',null,'cb '+(me?'me':'us'));if(!me)bb.appendChild(el('small','Web Yapıyoruz','cbw'));bb.appendChild(el('div',m.metin));bb.appendChild(el('small',zf(m.olusturma),'cbt'));ms.appendChild(bb)});
+   if(!t.gorusme_yanit&&!ml.length)ms.appendChild(el('div','Talebin bize ulaştı. Sana buradan ve telefonla dönüş yapacağız.','cb us dim'));
+   cb.appendChild(ms);
+   if(CHAT){var rw=el('div',null,'cxr'),inp=el('input');inp.placeholder='Mesajını yaz...';inp.maxLength=1000;inp.setAttribute('data-cm','1');var sb=el('button','Gönder','mb p');sb.type='button';
+    sb.onclick=function(){var v=inp.value.trim();if(!v)return;sb.disabled=true;c.from('gorusme_mesaj').insert({teklif_id:t.id,gonderen:'musteri',metin:v}).then(function(r){if(r.error){sb.disabled=false;alert('Mesaj gönderilemedi. Biraz sonra tekrar dene.');return}yukle()})};
+    var wb=null,wn=String(AY.whatsapp||'').replace(/\D/g,'');if(wn.length===10&&wn[0]==='5')wn='90'+wn;if(wn.length===11&&wn[0]==='0')wn='90'+wn.slice(1);
+    if(wn.length>=11){wb=el('button','WhatsApp’tan da gönder','mb');wb.type='button';wb.onclick=function(){var v=inp.value.trim();if(!v){alert('Önce mesajı yaz.');return}window.open('https://wa.me/'+wn+'?text='+encodeURIComponent(v),'_blank');wb.disabled=sb.disabled=true;c.from('gorusme_mesaj').insert({teklif_id:t.id,gonderen:'musteri',metin:v}).then(function(r){if(r.error){wb.disabled=sb.disabled=false;alert('Mesaj sohbete kaydedilemedi.');return}yukle()})}}
+    inp.onkeydown=function(e){if(e.key==='Enter'){e.preventDefault();sb.click()}};rw.appendChild(inp);rw.appendChild(sb);cb.appendChild(rw);if(wb){var wr=el('div',null,'cxw');wr.appendChild(wb);wr.appendChild(el('small','İstersen mesajı WhatsApp’tan da gönderebilirsin. Göndermek için orada bir kez basman yeterli.'));cb.appendChild(wr)}}
+   k.appendChild(cb);
    if(gd==='Talep edildi'){var ge=el('button','Görüşme bilgilerimi değiştir','mb');ge.type='button';ge.onclick=function(){gorus(t)};bx.appendChild(ge);k.appendChild(bx)}}}
  return k}
 var gcur=null,KN=['Ödemeden önce tanışıp görüşmek istiyorum','Teklifi kabul ettim, ödemeden önce yüz yüze görüşmek istiyorum','Fiyat ve kapsamı konuşmak istiyorum','Teklifte değişiklik istiyorum','Başka bir konu'];
@@ -68,3 +76,5 @@ $('bc').onclick=function(){$('bf').hidden=true};
 $('bk').onclick=function(){if(!cur)return;var o={};BK.forEach(function(k,i){o[BA[i]]=$(k).value.trim()});
  c.from('teklifler').update({bilgi:o}).eq('id',cur.id).then(function(r){$('bm').textContent=r.error?'Kaydedilemedi.':'Kaydedildi. Teşekkürler.';if(!r.error)yukle()})};
 })();
+
+setInterval(function(){if(document.hidden||!U)return;var a=document.activeElement;if(a&&(a.tagName==='INPUT'||a.tagName==='TEXTAREA'||a.tagName==='SELECT'))return;var f=document.querySelectorAll('[data-cm]'),dolu=false;f.forEach(function(x){if(x.value)dolu=true});if(dolu)return;var gf=document.getElementById('gf');if(gf&&!gf.hidden)return;yukle()},30000);
