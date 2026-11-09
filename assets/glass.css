@@ -156,3 +156,36 @@ header nav{gap:26px!important;margin-right:22px!important}
 .copy .fi b{display:inline!important;font-weight:700}
 .copy{align-items:flex-start!important}
 .copy .fi a{display:inline!important;margin:0!important;padding:0!important}
+
+/* v68: yazı satır düzeni (masaüstünü değiştirmez) */
+.cta h2{text-wrap:balance}
+.copy .cp{line-height:1.5}
+.kmn{max-width:720px;margin:22px auto 0;text-align:center;font-size:14px;line-height:1.6;opacity:.8}
+
+/* v68: mobil düzeltmeler (yalnızca dar ekran) */
+@media(max-width:760px){
+.hero .pill{display:block;width:100%;max-width:300px;margin:0 auto 14px;box-sizing:border-box;text-align:center}
+.copy .ts{display:block}
+/* şablon slider: kart ekrana sığar */
+.tilt{height:300px!important}
+.tl.c{width:86%!important;margin:-110px 0 0 -43%!important}
+.arr{width:42px;height:42px;margin-top:-21px;font-size:18px}.arr.l{left:6px}.arr.r{right:6px}
+/* yönetim paneli örneği */
+.dash{grid-template-columns:minmax(0,1fr)!important}
+.dash .main{min-width:0}
+.dash .st{gap:8px}.dash .st div{padding:12px 10px;min-width:0}.dash .st span{font-size:12px;line-height:1.25;display:block;overflow-wrap:anywhere}.dash .st b{font-size:28px}
+.dash .feed .rw{gap:10px;align-items:flex-start;font-size:14.5px}.dash .feed .rw>span:first-child{min-width:0}
+.tg,.mini .rw em{display:inline-flex;align-items:center;justify-content:center;line-height:1.25;padding:3px 10px;white-space:nowrap;flex:none}
+.mini .rw em{padding:3px 10px;font-size:11px;min-height:20px}
+}
+/* v69 mobil: buton satırı + akıcı kaydırma */
+@media(max-width:760px){
+.pgm .pill{white-space:nowrap;font-size:14.5px;padding:13px 16px;max-width:100%;box-sizing:border-box}
+body::before{filter:none!important}
+header,footer,.pill,.arr,.hb,.slg,.sb2,.sxar,.chip,.pgc,.cform input,.cform select,.cform textarea,.rzp input,.rzp select,.card-s,.tl,.dash,.info>div,.mini,.phone2,.cform,.wk .th,.gg .th,.stage .fr,.faq>div,details,.box,.card,.price,.pr,.ddsteps>div,.ddc,.rzp,.cta{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+header{background:rgba(10,24,56,.92)!important}
+footer{background:rgba(10,24,56,.85)!important}
+.card-s,.tl,.dash,.info>div,.mini,.phone2,.cform,.faq>div,details,.box,.card,.price,.pr,.ddc,.rzp,.cta,.pgc{background-color:rgba(8,22,54,.62)!important}
+.pgc,.card,.card-s,.tl,.pr{transition:none!important}
+.pgc:hover,.card:hover,.card-s:hover,.tl:hover,.pr:hover{transform:none!important}
+}
