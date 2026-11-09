@@ -29,3 +29,15 @@ body{font:15px/1.5 'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:v
 .sth{width:100%;max-width:300px;border-radius:12px;border:1px solid var(--ln)}
 .mw select{width:100%;padding:11px 13px;border-radius:12px;border:1px solid rgba(225,240,255,.5);background:rgba(255,255,255,.08);color:#fff;font:inherit;appearance:auto}.mw select option{color:#111;background:#fff}
 .gl{font-size:13px;color:rgba(255,255,255,.78);margin:4px 0 -6px;display:block}
+.cx{margin:22px 0 8px;padding:16px;border:1px solid rgba(255,255,255,.16);border-radius:16px;background:rgba(255,255,255,.04)}
+.cxh{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.cxs{font-size:12px;padding:4px 10px;border-radius:99px;background:rgba(246,196,83,.2);color:#f6c453;font-weight:600}
+.cxn{margin:0 0 12px;padding:9px 12px;border-radius:10px;background:#f6c453;color:#14213d;font-weight:600;font-size:14px}
+.cxm{display:flex;flex-direction:column;gap:12px}
+.cb{max-width:82%;padding:12px 14px;border-radius:16px;line-height:1.5;font-size:15px;word-break:break-word}
+.cb.me{align-self:flex-end;background:#2c5aa8;border-bottom-right-radius:4px}
+.cb.us{align-self:flex-start;background:rgba(246,196,83,.18);border:1px solid rgba(246,196,83,.5);border-bottom-left-radius:4px;font-size:17px;font-weight:600}
+.cb.dim{font-weight:400;font-size:14px;opacity:.8}
+.cbt,.cbw{display:block;font-size:11px;opacity:.7;margin-top:6px;font-weight:400}
+.cbw{margin:0 0 4px;color:#f6c453;opacity:1;font-weight:600}
+@media(max-width:560px){.cb{max-width:94%}}

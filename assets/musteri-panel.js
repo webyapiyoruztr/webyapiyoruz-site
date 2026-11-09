@@ -34,8 +34,16 @@ function kart(t){var k=el('div',null,'tq'),h=el('div',null,'th');h.appendChild(e
  if(t.odendi){k.appendChild(el('div',tl(t.fiyat)+' ödendi','ky'));var b3=el('div',null,'bt'),f=el('button',t.bilgi?'Site bilgilerimi düzenle':'Site bilgilerimi yaz','mb p');f.type='button';f.onclick=function(){bilgi(t)};b3.appendChild(f);k.appendChild(b3);k.appendChild(el('div','Sitenizi hazırlıyoruz. Bilgilerinizi yazın, logo ve fotoğrafları WhatsApp’tan gönderin.','ky'))}
  if(!t.odendi&&t.durum!=='Vazgeçildi'){var g=t.gorusme,bx=el('div',null,'bt');
   if(!g){if(t.durum!=='Teklif verildi'){var gb=el('button','Ödemeden önce yüz yüze görüşmek istiyorum','mb');gb.type='button';gb.onclick=function(){gorus(t,t.durum==='Kabul edildi'?KN[1]:KN[0])};bx.appendChild(gb);k.appendChild(bx)}}
-  else{var gd=t.gorusme_durum||'Talep edildi';k.appendChild(el('div','Görüşme talebiniz: '+gd+(g.sekil?'  ·  '+g.sekil:'')+(g.sehir?'  ·  '+g.sehir:'')+(g.zaman?'  ·  '+g.zaman:''),'ky'));
-   if(t.gorusme_yanit)k.appendChild(el('div','Bizden not: '+t.gorusme_yanit,'ky'));
+  else{var gd=t.gorusme_durum||'Talep edildi',cb=el('div',null,'cx');
+   var hd=el('div',null,'cxh');hd.appendChild(el('b','Görüşme talebin'));hd.appendChild(el('span',gd,'cxs'));cb.appendChild(hd);
+   if(t.gorusme_yanit)cb.appendChild(el('div','Web Yapıyoruz sana not yazdı. Aşağıda.','cxn'));
+   var ms=el('div',null,'cxm'),mine=el('div',null,'cb me');
+   mine.appendChild(el('div',[g.sekil,g.konu,g.sehir,g.zaman?'Uygun zaman: '+g.zaman:''].filter(Boolean).join(' · ')));
+   if(g.tarih){var d=new Date(g.tarih);if(!isNaN(d))mine.appendChild(el('small',d.toLocaleString('tr-TR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}),'cbt'))}
+   ms.appendChild(mine);
+   if(t.gorusme_yanit){var us=el('div',null,'cb us');us.appendChild(el('small','Web Yapıyoruz','cbw'));us.appendChild(el('div',t.gorusme_yanit));ms.appendChild(us)}
+   else ms.appendChild(el('div','Talebin bize ulaştı. Sana buradan ve telefonla dönüş yapacağız.','cb us dim'));
+   cb.appendChild(ms);k.appendChild(cb);
    if(gd==='Talep edildi'){var ge=el('button','Görüşme bilgilerimi değiştir','mb');ge.type='button';ge.onclick=function(){gorus(t)};bx.appendChild(ge);k.appendChild(bx)}}}
  return k}
 var gcur=null,KN=['Ödemeden önce tanışıp görüşmek istiyorum','Teklifi kabul ettim, ödemeden önce yüz yüze görüşmek istiyorum','Fiyat ve kapsamı konuşmak istiyorum','Teklifte değişiklik istiyorum','Başka bir konu'];
