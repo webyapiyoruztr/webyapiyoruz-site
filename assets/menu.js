@@ -21,7 +21,7 @@ var I={'sablonlar.html':'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect 
 'sss.html':'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 115 0c0 1.7-2.5 2-2.5 4M12 17h.01"/>'};
 var list='';[].forEach.call(nav.querySelectorAll('a'),function(a){var h=a.getAttribute('href');
 list+='<a href="'+h+'"'+(a.classList.contains('cur-p')?' class="on"':'')+'>'+ic(I[h]||'<circle cx="12" cy="12" r="4"/>')+'<span>'+a.textContent+'</span></a>';});
-m.innerHTML='<div class="dm-bg"></div><aside class="dm-p"><div class="dm-h">Menü</div>'+list+'<a href="panelim.html">'+ic('<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>')+'<span>Panelim / Giriş</span></a><a class="dm-cta" href="iletisim.html">'+ic('<path d="M4 5h16v11H9l-5 4z"/>')+'<span>Ücretsiz görüşme</span></a><div class="dm-f">Dijital dünyaya hazır mısınız?</div></aside>';
+m.innerHTML='<div class="dm-bg"></div><aside class="dm-p"><div class="dm-h">Menü</div>'+list+'<a href="panelim.html">'+ic('<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>')+'<span>Panelim / Giriş</span></a><a class="dm-cta" href="iletisim.html">'+ic('<path d="M4 5h16v11H9l-5 4z"/>')+'<span>Bize ulaşın</span></a><div class="dm-f">Dijital dünyaya hazır mısınız?</div></aside>';
 document.body.appendChild(m);
 function set(o){m.classList.toggle('on',o);btn.setAttribute('aria-expanded',o?'true':'false');m.setAttribute('aria-hidden',o?'false':'true');document.documentElement.style.overflow=o?'hidden':''}
 btn.addEventListener('click',function(){set(!m.classList.contains('on'))});

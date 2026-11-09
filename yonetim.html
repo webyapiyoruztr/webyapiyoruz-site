@@ -52,8 +52,9 @@ a.lk{color:var(--au);text-decoration:none}
 <div class="w">
 <div class="card" id="lg" style="max-width:380px;margin:60px auto"><h2>Yönetici girişi</h2><div class="g"><input id="em" type="email" placeholder="E-posta" autocomplete="username"><div style="position:relative"><input id="pw" type="password" placeholder="Şifre" autocomplete="current-password" style="padding-right:84px"><button type="button" class="bt" id="gz" style="position:absolute;right:5px;top:50%;transform:translateY(-50%);padding:4px 12px;font-size:13px">Göster</button></div><button class="bt p" id="gi" type="button">Giriş yap</button></div><p class="m" id="lm"></p></div>
 <div id="ap" hidden>
-<div class="tb"><button class="on" data-t="o" type="button">Özet</button><button data-t="s" type="button">Teklifler</button><button data-t="r" type="button">Satışlar</button><button data-t="b" type="button">Bütçe</button><button data-t="f" type="button">Ödeme bilgileri</button></div>
-<div data-p="o"><div class="st"><div><span>Toplam teklif</span><b id="z1">0</b></div><div><span>Fiyat bekleyen</span><b id="z2">0</b></div><div><span>Teklif verilen</span><b id="z3">0</b></div><div><span>Ödeme bekleyen</span><b id="z4">0</b></div><div><span>Ödenen</span><b id="z5">0</b></div><div><span>Alınan tutar</span><b id="z6">0 ₺</b></div><div><span>Görüşme talebi</span><b id="z7">0</b></div></div><h2>Bekleyen görüşme talepleri</h2><div id="gl"></div></div>
+<div class="tb"><button class="on" data-t="o" type="button">Özet</button><button data-t="s" type="button">Teklifler</button><button data-t="m" type="button" id="tm">Mesajlar</button><button data-t="r" type="button">Satışlar</button><button data-t="b" type="button">Bütçe</button><button data-t="f" type="button">Ödeme bilgileri</button></div>
+<div data-p="o"><div class="st"><div><span>Toplam teklif</span><b id="z1">0</b></div><div><span>Fiyat bekleyen</span><b id="z2">0</b></div><div><span>Teklif verilen</span><b id="z3">0</b></div><div><span>Ödeme bekleyen</span><b id="z4">0</b></div><div><span>Ödenen</span><b id="z5">0</b></div><div><span>Alınan tutar</span><b id="z6">0 ₺</b></div><div><span>Görüşme talebi</span><b id="z7">0</b></div><div><span>Yeni mesaj</span><b id="z8">0</b></div></div><h2>Bekleyen görüşme talepleri</h2><div id="gl"></div></div>
+<div data-p="m" hidden><div id="ml"></div></div>
 <div data-p="s" hidden><div class="card"><h2>Elle kayıt ekle (kendi sattığın iş)</h2><div class="g g2"><input id="n1" placeholder="Müşteri adı"><input id="n2" placeholder="Telefon (isteğe bağlı)"><input id="n5" type="email" placeholder="E-posta (isteğe bağlı)"><input id="n3" placeholder="Ne satıldı (ör. Özler sürücü kursu sitesi)"><input id="n4" type="number" placeholder="Tutar ₺"></div><div style="margin-top:12px"><button class="bt p" id="ek" type="button">Kaydı ekle</button> <span class="m" id="em2"></span></div></div><div id="tq"></div></div>
 <div data-p="r" hidden><div class="st"><div><span>Seçili dönemde alınan</span><b id="r1">0 ₺</b></div><div><span>Satış adedi</span><b id="r2">0</b></div><div><span>Ödeme bekleyen</span><b id="r3">0 ₺</b></div><div><span>Dönem</span><select id="sm"><option value="">Tüm aylar</option></select></div></div>
 <h2>Ödemesi alınanlar</h2><div class="tw" style="margin-bottom:22px"><table><thead><tr><th>Ödeme tarihi</th><th>Müşteri</th><th>E-posta</th><th>Telefon</th><th>Ne alındı</th><th>Kod</th><th>Tutar</th></tr></thead><tbody id="rt"></tbody></table></div>
@@ -75,8 +76,9 @@ $('gi').onclick=function(){c.auth.signInWithPassword({email:$('em').value.trim()
 $('gz').onclick=function(){var p=$('pw'),a=p.type==='password';p.type=a?'text':'password';$('gz').textContent=a?'Gizle':'Göster'};
 $('cik').onclick=function(){c.auth.signOut().then(giris)};
 function wno(x){var d=String(x||'').replace(/\D/g,'');if(d.length===11&&d[0]==='0')d='90'+d.slice(1);else if(d.length===10&&d[0]==='5')d='90'+d;return d.length>=11?d:''}
-var MS={},CHAT=false;function sonm(t){var l=MS[t.id]||[];return l.length?l[l.length-1]:null}function bekle(t){if(!t.gorusme)return false;var m=sonm(t);return m?m.gonderen==='musteri':(t.gorusme_durum||'Talep edildi')==='Talep edildi'}
-function yukle(){Promise.all([c.from('teklifler').select('*').order('id',{ascending:false}),c.from('yoneticiler').select('eposta'),c.from('ayarlar').select('*'),c.from('gorusme_mesaj').select('*').order('olusturma',{ascending:true})]).then(function(a){
+var MS={},CHAT=false,IM=[],IMOK=false;function sonm(t){var l=MS[t.id]||[];return l.length?l[l.length-1]:null}function bekle(t){if(!t.gorusme)return false;var m=sonm(t);return m?m.gonderen==='musteri':(t.gorusme_durum||'Talep edildi')==='Talep edildi'}
+function yukle(){Promise.all([c.from('teklifler').select('*').order('id',{ascending:false}),c.from('yoneticiler').select('eposta'),c.from('ayarlar').select('*'),c.from('gorusme_mesaj').select('*').order('olusturma',{ascending:true}),c.from('iletisim_mesaj').select('*').order('id',{ascending:false})]).then(function(a){
+ IMOK=!a[4].error;IM=a[4].data||[];
  CHAT=!a[3].error;MS={};(a[3].data||[]).forEach(function(m){(MS[m.teklif_id]=MS[m.teklif_id]||[]).push(m)});
  if(a[0].error){$('lg').hidden=false;$('ap').hidden=true;$('lm').textContent='Teklif tablosu bulunamadı. Supabase-V52-Kurulum dosyasını çalıştırın.';return}
  if(a[1].error||!(a[1].data||[]).length){$('lg').hidden=false;$('ap').hidden=true;$('lm').textContent='Bu hesap yönetici olarak tanımlı değil.';return}
@@ -111,7 +113,15 @@ function satis(){
  $('r1').textContent=tl(top);$('r2').textContent=L.length;$('r3').textContent=tl(bt)}
 $('sm').onchange=satis;
 function yol(k){k=String(k||'').toLowerCase();return k==='kurs'?'demo/kurs/index.html':'demo/'+k+'.html'}
-function ciz(){
+function rm(){var yn=IM.filter(function(m){return m.durum==='Yeni'}).length;var tb=$('tm');if(tb)tb.textContent='Mesajlar'+(yn?' ('+yn+')':'');var z=$('z8');if(z)z.textContent=yn;var L=$('ml');if(!L)return;
+ if(!IMOK){L.innerHTML='<div class="card"><p class="m">Mesajlar henüz kurulmadı. Supabase-V55-Iletisim dosyasını bir kez çalıştırman gerekiyor.</p></div>';return}
+ if(!IM.length){L.innerHTML='<div class="card"><p class="m">Henüz mesaj yok. "Bize ulaşın" sayfasından gelen mesajlar burada görünür.</p></div>';return}
+ L.innerHTML=IM.map(function(m){var n=wno(m.telefon),dc=m.durum==='Yeni'?'':(m.durum==='Yanıtlandı'?'ok':'');
+  return '<div class="tq"><div class="th"><b>'+esc(m.ad)+'</b><small>'+esc(zt(m.olusturma))+'</small><span class="ch '+(m.durum==='Yeni'?'g':'')+'">'+esc(m.durum)+'</span><span class="ch">'+esc(m.konu)+'</span><span class="sp"></span><button class="bt" data-mx="'+m.id+'" type="button">Sil</button></div>'
+  +'<div class="ky">'+(m.telefon?'Telefon: <a class="lk" href="tel:'+esc(m.telefon.replace(/[^+\d]/g,''))+'">'+esc(m.telefon)+'</a>':'')+(m.telefon&&m.eposta?' · ':'')+(m.eposta?'E-posta: <a class="lk" href="mailto:'+esc(m.eposta)+'">'+esc(m.eposta)+'</a>':'')+'</div>'
+  +'<div class="cb me" style="max-width:100%;margin:10px 0;white-space:pre-wrap">'+esc(m.mesaj)+'</div>'
+  +'<div class="gr" style="grid-template-columns:1fr auto auto;display:grid;gap:10px"><select data-md="'+m.id+'">'+['Yeni','Yanıtlandı','Kapandı'].map(function(o){return '<option'+(o===m.durum?' selected':'')+'>'+o+'</option>'}).join('')+'</select>'+(n?'<a class="bt wa" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;text-decoration:none;height:46px;min-width:150px" href="https://wa.me/'+n+'">WhatsApp\'ta yaz</a>':'')+(m.eposta?'<a class="bt p" style="display:inline-flex;align-items:center;justify-content:center;text-decoration:none;height:46px;min-width:150px" href="mailto:'+esc(m.eposta)+'">E-posta yaz</a>':'')+'</div></div>'}).join('')}
+function ciz(){rm();
  var bos=!T.length;
  $('tq').innerHTML=T.map(function(t){
   var dc=t.odendi?'k':(t.durum==='Teklif verildi'||t.durum==='Kabul edildi')?'y':'';
@@ -151,6 +161,8 @@ $('ek').onclick=function(){var a=$('n1').value.trim();if(!a){$('em2').textConten
 $('pw').addEventListener('keydown',function(e){if(e.key==='Enter')$('gi').click()});
 giris();
 })();
+document.addEventListener('change',function(e){var sm=e.target.closest&&e.target.closest('select[data-md]');if(!sm)return;c.from('iletisim_mesaj').update({durum:sm.value}).eq('id',sm.getAttribute('data-md')).then(function(r){if(r.error){alert('Durum kaydedilemedi.');return}yukle()})});
+document.addEventListener('click',function(e){var dx=e.target.closest&&e.target.closest('[data-mx]');if(!dx)return;if(!confirm('Bu mesaj silinsin mi?'))return;c.from('iletisim_mesaj').delete().eq('id',dx.getAttribute('data-mx')).then(function(r){if(r.error){alert('Silinemedi.');return}yukle()})});
 document.addEventListener('change',function(e){var sd=e.target.closest&&e.target.closest('select[data-gd]');if(!sd)return;c.from('teklifler').update({gorusme_durum:sd.value}).eq('id',sd.getAttribute('data-gd')).then(function(r){if(r.error){alert('Durum kaydedilemedi.');return}yukle()})});
 setInterval(function(){if(document.hidden)return;var a=document.activeElement;if(a&&(a.tagName==='INPUT'||a.tagName==='TEXTAREA'||a.tagName==='SELECT'))return;var d=false;document.querySelectorAll('input[data-gy],input[data-f],input[data-y]').forEach(function(x){if(x.value&&x.hasAttribute('data-gy'))d=true});if(d||!T||!T.length&&0)return;yukle()},45000);
 </script></body></html>
