@@ -1,26 +1,48 @@
 <!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Yönetim · Web Yapıyoruz</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}body{font:14px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif;background:linear-gradient(160deg,#123c82,#0a2a63 55%,#07183d);color:#fff;min-height:100vh;padding:18px 16px 40px}
-.w{max-width:1040px;margin:0 auto}h1{font-size:20px;margin-bottom:14px}
-.card{border:1px solid rgba(210,232,255,.4);border-radius:18px;background:rgba(6,18,48,.55);padding:16px;margin-bottom:14px}
-input,select,button{font:inherit;color:#fff}input,select{padding:9px 12px;border-radius:12px;border:1px solid rgba(225,240,255,.5);background:rgba(255,255,255,.08);width:100%}select option{color:#111}
-button{cursor:pointer;padding:9px 16px;border-radius:999px;border:1px solid rgba(225,240,255,.6);background:rgba(255,255,255,.07);font-weight:700}
-button.p,.tb button.on{background:#f6c24a;border-color:#f6c24a;color:#1b1500}
-.tb{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.g{display:grid;gap:10px}.g2{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
-.st{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}.st div{border:1px solid rgba(210,232,255,.3);border-radius:14px;padding:10px 12px;background:rgba(255,255,255,.05)}.st span{display:block;font-size:12px;opacity:.8}.st b{font-size:21px}
-.tw{overflow-x:auto;border:1px solid rgba(210,232,255,.28);border-radius:14px}table{width:100%;border-collapse:collapse;min-width:640px}th,td{padding:9px 12px;text-align:left;border-top:1px solid rgba(210,232,255,.2)}th{border-top:0;background:rgba(255,255,255,.07);font-size:12px}
-.tk{width:26px;height:26px;padding:0;border-radius:8px;color:transparent}.tk.on{background:#5eead4;border-color:#5eead4;color:#04332e}
-.bar{height:10px;border-radius:99px;background:rgba(255,255,255,.18);overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,#f6c24a,#fff)}
-.m{font-size:13px;margin-top:8px;min-height:18px}[hidden]{display:none!important}.mr{display:grid;grid-template-columns:90px 1fr 110px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
-</style></head><body><div class="w">
-<h1 style="text-align:center">Yönetim paneli</h1>
-<div class="card" id="lg" style="max-width:380px;margin:40px auto"><div class="g"><input id="em" type="email" placeholder="E-posta" autocomplete="username"><div style="position:relative"><input id="pw" type="password" placeholder="Şifre" autocomplete="current-password" style="padding-right:78px"><button type="button" id="gz" style="position:absolute;right:6px;top:50%;transform:translateY(-50%);padding:5px 12px;font-size:12px">Göster</button></div><button class="p" id="gi" type="button">Giriş yap</button></div><p class="m" id="lm"></p></div>
+:root{--bg:#1b1c1e;--pn:#222326;--ln:#34363a;--tx:#e9e7e1;--mut:#9a9ca1;--au:#e0b862}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:15px/1.5 'Barlow',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
+.top{display:flex;align-items:center;gap:18px;padding:14px max(20px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--ln);flex-wrap:wrap}
+.br{font:700 22px 'Barlow Condensed',sans-serif;letter-spacing:.01em}.br span{color:var(--mut);font-weight:600}
+.top .sp{flex:1}.top small{color:var(--mut);font-size:14px}
+.w{max-width:1160px;margin:0 auto;padding:0 max(20px,env(safe-area-inset-left,0px)) 40px}
+.tb{display:flex;gap:6px;border-bottom:1px solid var(--ln);margin:22px 0 20px;overflow-x:auto}
+.tb button{background:none;border:0;border-bottom:2px solid transparent;color:var(--mut);padding:12px 16px;font:500 15px 'Barlow',sans-serif;cursor:pointer;white-space:nowrap}
+.tb button.on{color:var(--tx);border-bottom-color:var(--au)}
+.st{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:22px}
+.st div{background:var(--pn);border:1px solid var(--ln);border-radius:14px;padding:18px 20px}
+.st span{display:block;color:var(--mut);font-size:14px}.st b{display:block;white-space:nowrap;font:700 34px/1.2 'Barlow Condensed',sans-serif;color:var(--au);margin-top:4px}
+.card{background:var(--pn);border:1px solid var(--ln);border-radius:14px;padding:18px 20px;margin-bottom:18px}
+h2{font:600 16px 'Barlow',sans-serif;margin-bottom:12px}
+input,select{padding:10px 12px;border-radius:10px;border:1px solid var(--ln);background:#18191b;color:var(--tx);font:inherit;width:100%}
+select option{color:#111}
+button{font:inherit;cursor:pointer}
+.bt{padding:9px 18px;border-radius:10px;border:1px solid var(--ln);background:#2a2b2f;color:var(--tx);font-weight:500}
+.bt.p{background:var(--au);border-color:var(--au);color:#241a00;font-weight:600}
+.g{display:grid;gap:10px}.g2{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.tw{overflow-x:auto;background:var(--pn);border:1px solid var(--ln);border-radius:14px}
+table{width:100%;border-collapse:collapse;min-width:640px}th,td{padding:12px 16px;text-align:left;border-top:1px solid var(--ln)}
+th{border-top:0;color:var(--mut);font-weight:500;font-size:13.5px}
+.tk{width:28px;height:28px;border-radius:8px;border:1.5px solid #55575c;background:none;color:transparent;font-size:16px;font-weight:700;padding:0}
+.tk.on{background:var(--au);border-color:var(--au);color:#241a00}
+.bar{height:10px;border-radius:99px;background:#2d2e32;overflow:hidden}.bar i{display:block;height:100%;background:var(--au)}
+.m{font-size:14px;color:var(--mut);min-height:20px;margin-top:8px}[hidden]{display:none!important}
+.mr{display:grid;grid-template-columns:90px 1fr 120px;gap:12px;align-items:center;margin:9px 0;font-size:14.5px}
+.fr{display:grid;grid-template-columns:1fr 160px 100px;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--ln)}.fr:first-child{border-top:0}
+@media(max-width:600px){.fr{grid-template-columns:1fr 1fr}.fr b{grid-column:1/-1}}
+</style></head><body>
+<div class="top"><div class="br">webyapiyoruz.tr<span>/yönetim</span></div><div class="sp"></div><small id="who"></small><button class="bt" id="cik" type="button" hidden>Çıkış</button></div>
+<div class="w">
+<div class="card" id="lg" style="max-width:380px;margin:60px auto"><h2>Yönetici girişi</h2><div class="g"><input id="em" type="email" placeholder="E-posta" autocomplete="username"><div style="position:relative"><input id="pw" type="password" placeholder="Şifre" autocomplete="current-password" style="padding-right:84px"><button type="button" class="bt" id="gz" style="position:absolute;right:5px;top:50%;transform:translateY(-50%);padding:4px 12px;font-size:13px">Göster</button></div><button class="bt p" id="gi" type="button">Giriş yap</button></div><p class="m" id="lm"></p></div>
 <div id="ap" hidden>
-<div class="tb"><button class="on" data-t="s" type="button">Siparişler</button><button data-t="b" type="button">Bütçe</button><button data-t="f" type="button">Fiyatlar</button><button id="cik" type="button">Çıkış</button></div>
-<div data-p="s"><div class="card"><div class="g g2"><input id="n1" placeholder="Ad soyad"><input id="n2" placeholder="Telefon"><select id="n3"></select><input id="n4" type="number" placeholder="Tutar ₺"><input id="n5" type="date"></div><div style="margin-top:10px"><button class="p" id="ek" type="button">Sipariş ekle</button> <span class="m" id="em2"></span></div></div>
+<div class="tb"><button class="on" data-t="o" type="button">Özet</button><button data-t="s" type="button">Siparişler</button><button data-t="b" type="button">Bütçe</button><button data-t="f" type="button">Paketler ve fiyatlar</button></div>
+<div data-p="o"><div class="st"><div><span>Toplam sipariş</span><b id="z1">0</b></div><div><span>Ödemesi alınan</span><b id="z2">0</b></div><div><span>Ödeme bekleyen</span><b id="z3">0</b></div><div><span>Alınan tutar</span><b id="z4">0 ₺</b></div><div><span>Bekleyen tutar</span><b id="z5">0 ₺</b></div><div><span>Fiyatı girilen paket</span><b id="z6">0</b></div></div></div>
+<div data-p="s" hidden><div class="card"><h2>Yeni sipariş</h2><div class="g g2"><input id="n1" placeholder="Ad soyad"><input id="n2" placeholder="Telefon"><select id="n3"></select><input id="n4" type="number" placeholder="Tutar ₺"><input id="n5" type="date"></div><div style="margin-top:12px"><button class="bt p" id="ek" type="button">Sipariş ekle</button> <span class="m" id="em2"></span></div></div>
 <div class="tw"><table><thead><tr><th>Tarih</th><th>Ad soyad</th><th>Telefon</th><th>Paket</th><th>Tutar</th><th>Ödendi</th><th></th></tr></thead><tbody id="tb"></tbody></table></div></div>
-<div data-p="b" hidden><div class="st"><div><span>Toplam sipariş</span><b id="b1">0</b></div><div><span>Alınan (ödendi)</span><b id="b2">0 ₺</b></div><div><span>Bekleyen</span><b id="b3">0 ₺</b></div><div><span>Bu ay alınan</span><b id="b4">0 ₺</b></div></div><div class="card"><b>Aylara göre</b><div id="ay"></div></div><div class="card"><b>Pakete göre</b><div id="pk"></div></div></div>
-<div data-p="f" hidden><div class="card"><div id="fl" class="g"></div><p class="m" id="fm"></p></div></div>
+<div data-p="b" hidden><div class="st"><div><span>Toplam sipariş</span><b id="b1">0</b></div><div><span>Alınan (ödendi)</span><b id="b2">0 ₺</b></div><div><span>Bekleyen</span><b id="b3">0 ₺</b></div><div><span>Bu ay alınan</span><b id="b4">0 ₺</b></div></div><div class="card"><h2>Aylara göre alınan</h2><div id="ay"></div></div><div class="card"><h2>Pakete göre sipariş</h2><div id="pk"></div></div></div>
+<div data-p="f" hidden><div class="card"><h2>Paket fiyatları</h2><div id="fl"></div><p class="m" id="fm"></p></div></div>
 </div></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/dist/umd/supabase.min.js"></script><script src="assets/sb-config.js?v=37"></script>
 <script>
@@ -30,7 +52,7 @@ $('gz').onclick=function(){var p=$('pw'),a=p.type==='password';p.type=a?'text':'
 if(!window.SB_URL||window.SB_URL.indexOf('BURAYA')===0){$('lm').textContent='Supabase bilgileri henüz girilmedi (assets/sb-config.js).';return}
 var c=window.supabase.createClient(window.SB_URL,window.SB_KEY),S=[],F=[];
 function esc(s){var d=document.createElement('div');d.textContent=s==null?'':s;return d.innerHTML}
-function giris(){c.auth.getSession().then(function(r){var s=r.data.session;$('lg').hidden=!!s;$('ap').hidden=!s;if(s)yukle()})}
+function giris(){c.auth.getSession().then(function(r){var s=r.data.session;$('lg').hidden=!!s;$('ap').hidden=!s;$('cik').hidden=!s;$('who').textContent=s?s.user.email:'';if(s)yukle()})}
 $('gi').onclick=function(){c.auth.signInWithPassword({email:$('em').value.trim(),password:$('pw').value}).then(function(r){if(r.error){$('lm').textContent='Giriş olmadı: e-posta veya şifre hatalı.';return}giris()})};
 $('gz').onclick=function(){var p=$('pw'),a=p.type==='password';p.type=a?'text':'password';$('gz').textContent=a?'Gizle':'Göster'};
 $('cik').onclick=function(){c.auth.signOut().then(giris)};
@@ -39,14 +61,14 @@ function yukle(){Promise.all([c.from('siparisler').select('*').order('tarih',{as
  S=a[0].data;F=a[1].data;ciz()})}
 function ciz(){
  $('n3').innerHTML=F.map(function(f){return '<option value="'+esc(f.ad)+'" data-f="'+(f.fiyat||0)+'">'+esc(f.ad)+'</option>'}).join('');
- $('tb').innerHTML=S.map(function(s){return '<tr><td>'+esc(s.tarih)+'</td><td><b>'+esc(s.ad)+'</b></td><td>'+esc(s.telefon)+'</td><td>'+esc(s.paket)+'</td><td>'+tl(s.tutar)+'</td><td><button class="tk'+(s.odendi?' on':'')+'" data-i="'+s.id+'" type="button">✓</button></td><td><button data-d="'+s.id+'" type="button">Sil</button></td></tr>'}).join('')||'<tr><td colspan="7">Henüz sipariş yok.</td></tr>';
+ $('tb').innerHTML=S.map(function(s){return '<tr><td>'+esc(s.tarih)+'</td><td><b>'+esc(s.ad)+'</b></td><td>'+esc(s.telefon)+'</td><td>'+esc(s.paket)+'</td><td>'+tl(s.tutar)+'</td><td><button class="tk'+(s.odendi?' on':'')+'" data-i="'+s.id+'" type="button">✓</button></td><td><button class="bt" data-d="'+s.id+'" type="button">Sil</button></td></tr>'}).join('')||'<tr><td colspan="7">Henüz sipariş yok.</td></tr>';
  var al=0,bk=0,ay={},pk={},bu=new Date().toISOString().slice(0,7),bay=0;
  S.forEach(function(s){var t=Number(s.tutar||0);if(s.odendi){al+=t;var m=String(s.tarih).slice(0,7);ay[m]=(ay[m]||0)+t;if(m===bu)bay+=t}else bk+=t;pk[s.paket]=(pk[s.paket]||0)+1});
- $('b1').textContent=S.length;$('b2').textContent=tl(al);$('b3').textContent=tl(bk);$('b4').textContent=tl(bay);
+ $('b1').textContent=S.length;$('z1').textContent=S.length;$('z2').textContent=S.filter(function(s){return s.odendi}).length;$('z3').textContent=S.filter(function(s){return !s.odendi}).length;$('z4').textContent=tl(al);$('z5').textContent=tl(bk);$('z6').textContent=F.filter(function(f){return f.fiyat!=null}).length+' / '+F.length;$('b2').textContent=tl(al);$('b3').textContent=tl(bk);$('b4').textContent=tl(bay);
  var mx=Math.max.apply(null,Object.keys(ay).map(function(k){return ay[k]}).concat([1]));
  $('ay').innerHTML=Object.keys(ay).sort().reverse().map(function(k){return '<div class="mr"><span>'+k+'</span><div class="bar"><i style="width:'+Math.round(ay[k]*100/mx)+'%"></i></div><b>'+tl(ay[k])+'</b></div>'}).join('')||'<p class="m">Ödenmiş sipariş yok.</p>';
  $('pk').innerHTML=Object.keys(pk).map(function(k){return '<div class="mr"><span>'+esc(k)+'</span><div></div><b>'+pk[k]+' adet</b></div>'}).join('')||'<p class="m">Veri yok.</p>';
- $('fl').innerHTML=F.map(function(f){return '<div class="g g2"><b style="align-self:center">'+esc(f.ad)+'</b><input data-k="'+f.anahtar+'" type="number" placeholder="Fiyat ₺" value="'+(f.fiyat==null?'':f.fiyat)+'"><button data-s="'+f.anahtar+'" type="button">Kaydet</button></div>'}).join('')}
+ $('fl').innerHTML=F.map(function(f){return '<div class="fr"><b>'+esc(f.ad)+'</b><input data-k="'+f.anahtar+'" type="number" placeholder="Fiyat ₺" value="'+(f.fiyat==null?'':f.fiyat)+'"><button class="bt" data-s="'+f.anahtar+'" type="button">Kaydet</button></div>'}).join('')}
 document.addEventListener('click',function(e){var t=e.target.closest('.tk');
  if(t){var i=t.getAttribute('data-i'),s=S.filter(function(x){return String(x.id)===i})[0];c.from('siparisler').update({odendi:!s.odendi}).eq('id',i).then(yukle);return}
  var d=e.target.closest('[data-d]');if(d){c.from('siparisler').delete().eq('id',d.getAttribute('data-d')).then(yukle);return}
