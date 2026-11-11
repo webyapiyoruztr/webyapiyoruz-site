@@ -1,4 +1,4 @@
-<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><link rel="stylesheet" href="assets/musteri.css?v=8"><title>Teklif al · Web Yapıyoruz</title></head><body>
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><link rel="stylesheet" href="assets/musteri.css?v=8"><title>Teklif al · Web Yapıyoruz</title><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0F172A"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Web Yapıyoruz"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><link rel="apple-touch-icon" href="img/apple-touch-icon.png"></head><body>
 <div class="mt"><a href="index.html">← Web Yapıyoruz</a><a href="sablonlar.html">Şablonlar</a><div class="sp"></div><small id="who"></small><a href="panelim.html" id="pl" hidden>Panelim</a></div>
 <div class="mw" style="max-width:640px">
 <h1 style="font-size:24px;margin-bottom:6px">Teklif al</h1>
@@ -55,4 +55,4 @@ $('go').onclick=function(){
   if(r.error){$('go').disabled=false;$('ms').textContent='Teklif gönderilemedi. Biraz sonra tekrar deneyin.';return}
   location.href='panelim.html?yeni='+encodeURIComponent(r.data.kod)+(gv?'&gorusme=1':'')})};
 })();
-</script></body></html>
+</script><script>if('serviceWorker' in navigator)addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})</script></body></html>
